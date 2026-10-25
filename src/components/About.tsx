@@ -1,102 +1,71 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { about, site } from "@/data/site";
-import { weave } from "@/lib/weave";
+import { SectionHeading } from "./SectionHeading";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const STRIPS = 5;
-
-/** A cloth woven from the name, shown until a portrait is provided. */
-function NameCloth() {
-  const canvas = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const el = canvas.current!;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    el.width = el.offsetWidth * dpr;
-    el.height = el.offsetHeight * dpr;
-    weave("Roland Amedon", 5).draw(el.getContext("2d")!, el.width, el.height);
-  }, []);
-
-  return <canvas ref={canvas} className="absolute inset-0 h-full w-full" aria-hidden />;
-}
-
 export function About() {
-  const frame = useRef<HTMLDivElement>(null);
+  const root = useRef<HTMLElement>(null);
 
-  // The portrait is cut into strips that slide into line as it scrolls into view.
+  // The portrait drifts slower than the page for a little depth.
   useGSAP(
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       gsap.fromTo(
-        "[data-portrait-strip]",
-        { yPercent: (i: number) => (i % 2 ? 9 : -9) },
-        {
-          yPercent: 0,
-          ease: "none",
-          scrollTrigger: { trigger: frame.current, start: "top 85%", end: "center 55%", scrub: 0.6 },
-        },
+        "[data-parallax]",
+        { yPercent: -6 },
+        { yPercent: 6, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true } },
       );
     },
-    { scope: frame },
+    { scope: root },
   );
 
   return (
-    <section id="a-propos" className="px-gutter pb-32 pt-28 md:pt-40">
-      <div className="grid gap-14 md:grid-cols-12 md:gap-10">
-        <div className="md:col-span-5">
-          <div
-            ref={frame}
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-surface"
-          >
-            {Array.from({ length: STRIPS }, (_, i) => (
-              <div
-                key={i}
-                data-portrait-strip
-                className="absolute inset-0"
-                style={{ clipPath: `inset(0 ${100 - ((i + 1) / STRIPS) * 100}% 0 ${(i / STRIPS) * 100}%)` }}
-              >
-                {site.portrait ? (
-                  <Image
-                    src={site.portrait}
-                    alt={i === 0 ? `Portrait de ${site.name}` : ""}
-                    fill
-                    sizes="(min-width: 768px) 40vw, 100vw"
-                    className="object-cover"
-                  />
-                ) : (
-                  <NameCloth />
-                )}
+    <section ref={root} id="a-propos" className="px-gutter relative py-28 md:py-36">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-5">
+          <div className="glass relative rounded-[32px] p-3">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] bg-raised">
+              <div data-parallax className="absolute inset-[-8%]">
+                <Image
+                  src={site.portrait}
+                  alt={`Portrait de ${site.name}`}
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover object-[50%_20%]"
+                />
               </div>
-            ))}
-            <div className="absolute inset-x-0 bottom-0 h-1.5 bg-accent" />
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="glass absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-2xl px-4 py-3 text-[14px] text-white">
+                <span className="font-medium">{site.name}</span>
+                <span className="text-white/70">{site.role}</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="md:col-span-6 md:col-start-7 md:self-end">
-          <h2 className="display-tight text-[clamp(3.6rem,9vw,8.5rem)]">
-            Derrière
-            <br />
-            le métier
-          </h2>
-          <p className="mt-10 max-w-[30ch] text-[clamp(1.4rem,2.2vw,2rem)] leading-[1.3]">{about.lead}</p>
+        <div className="lg:col-span-7">
+          <SectionHeading tag="À propos" title="Derrière les projets" />
+          <p className="mt-8 max-w-[34ch] text-[clamp(1.25rem,2vw,1.6rem)] font-medium leading-snug tracking-[-0.015em]">
+            {about.lead}
+          </p>
           {about.body.map((t) => (
-            <p key={t} className="mt-6 max-w-[48ch] text-[1.2rem] leading-[1.6] text-fg/80">
+            <p key={t} className="mt-5 max-w-[56ch] leading-[1.75] text-muted">
               {t}
             </p>
           ))}
 
-          <dl className="font-display mt-12 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-6 text-[15px]">
+          <dl className="mt-10 grid grid-cols-2 gap-3">
             {about.facts.map((f) => (
-              <div key={f.label}>
-                <dt className="text-muted">{f.label}</dt>
-                <dd className="mt-1 text-[17px]">{f.value}</dd>
+              <div key={f.label} className="glass rounded-2xl px-5 py-4">
+                <dt className="text-[13px] text-muted">{f.label}</dt>
+                <dd className="mt-1 font-medium">{f.value}</dd>
               </div>
             ))}
           </dl>

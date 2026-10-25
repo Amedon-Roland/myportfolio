@@ -4,26 +4,17 @@ import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
-const media = () => window.matchMedia("(prefers-color-scheme: light)");
-
 function current(): Theme {
-  const set = document.documentElement.getAttribute("data-theme");
-  if (set === "light" || set === "dark") return set;
-  return media().matches ? "light" : "dark";
+  return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
 }
 
 function subscribe(onChange: () => void) {
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-  const mq = media();
-  mq.addEventListener("change", onChange);
-  return () => {
-    observer.disconnect();
-    mq.removeEventListener("change", onChange);
-  };
+  return () => observer.disconnect();
 }
 
-/** Switches between the indigo night theme and the cotton day theme. */
+/** Switches between the dark default and the opt-in light theme. */
 export function ThemeToggle() {
   const theme = useSyncExternalStore<Theme | null>(subscribe, current, () => null);
   const next: Theme = theme === "light" ? "dark" : "light";

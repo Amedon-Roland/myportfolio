@@ -1,60 +1,55 @@
-import { craft, method } from "@/data/site";
+"use client";
 
-/**
- * The four steps sit side by side like sewn kente strips: equal widths,
- * alternating shades, one continuous cloth.
- */
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { method } from "@/data/site";
+import { SectionHeading } from "./SectionHeading";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+/** Four steps on a rail that fills as the section scrolls past. */
 export function Method() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      gsap.fromTo(
+        "[data-rail]",
+        { scaleX: 0 },
+        { scaleX: 1, ease: "none", scrollTrigger: { trigger: "[data-steps]", start: "top 75%", end: "bottom 60%", scrub: true } },
+      );
+    },
+    { scope: root },
+  );
+
   return (
-    <section id="methode" className="px-gutter pb-32 pt-28 md:pt-40">
-      <div className="grid gap-8 md:grid-cols-12 md:items-end">
-        <h2 className="display-tight text-[clamp(3.6rem,11vw,10rem)] md:col-span-7">
-          Une bande
-          <br />
-          à la fois
-        </h2>
-        <p className="max-w-[40ch] text-xl leading-relaxed text-fg/80 md:col-span-5 md:col-start-8 md:justify-self-end">
-          À Kpetoe, au Togo, le kente se tisse en bandes étroites que l&apos;on coud ensuite bord à
-          bord. Je construis mes projets de la même manière.
-        </p>
-      </div>
+    <section ref={root} id="methode" className="px-gutter py-28 md:py-36">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading
+          tag="Méthode"
+          title="Quatre étapes, aucune surprise"
+          intro="Vous savez à chaque moment où en est votre projet, et ce qui vient ensuite."
+        />
 
-      <ol className="mt-16 grid overflow-hidden rounded-sm md:mt-20 md:grid-cols-4">
-        {method.map((m, i) => (
-          <li
-            key={m.title}
-            className={`flex flex-col gap-20 p-7 md:gap-28 md:p-8 md:pb-12 ${
-              i % 2 ? "bg-line/55" : "bg-surface"
-            }`}
-          >
-            <span className="font-display tabular text-[15px] text-accent">Étape {i + 1}</span>
-            <div>
-              <h3 className="font-display text-[clamp(2rem,3vw,2.75rem)] font-semibold leading-none tracking-[-0.02em]">
-                {m.title}
-              </h3>
-              <p className="mt-5 text-[1.12rem] leading-[1.55] text-fg/80">{m.text}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
+        <div data-steps className="relative mt-16">
+          <div className="absolute left-0 right-0 top-[22px] hidden h-px bg-line md:block" />
+          <div data-rail className="absolute left-0 right-0 top-[22px] hidden h-px origin-left bg-gradient-to-r from-accent to-accent-2 md:block" />
 
-      <div className="mt-28 grid gap-10 md:grid-cols-12">
-        <div className="md:col-span-4">
-          <h3 className="font-display text-2xl font-semibold tracking-tight">Mes outils</h3>
-          <p className="mt-3 max-w-[30ch] text-lg text-fg/70">
-            Ceux que j&apos;utilise en production, pas ceux que j&apos;ai seulement essayés.
-          </p>
+          <ol className="grid gap-5 md:grid-cols-4">
+            {method.map((m, i) => (
+              <li key={m.title} className="relative">
+                <span className="glass relative z-10 grid h-11 w-11 place-items-center rounded-full text-[14px] font-semibold tabular">
+                  {i + 1}
+                </span>
+                <h3 className="mt-6 text-[1.35rem] font-semibold tracking-[-0.02em]">{m.title}</h3>
+                <p className="mt-3 leading-relaxed text-muted">{m.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
-        <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2 md:col-span-8">
-          {craft.map((c) => (
-            <div key={c.group} className="border-t border-line pt-4">
-              <dt className="font-display text-[15px] text-muted">{c.group}</dt>
-              <dd className="font-display mt-2 text-[clamp(1.4rem,2.2vw,1.9rem)] font-medium leading-snug tracking-[-0.01em]">
-                {c.items.join(", ")}
-              </dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );

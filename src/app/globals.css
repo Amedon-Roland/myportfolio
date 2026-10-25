@@ -1,83 +1,65 @@
 @import "tailwindcss";
 
 /*
-  Palette drawn from Ewe kente and indigo-dyed cloth.
-  Night: indigo ground, cotton thread. Day: cotton ground, indigo thread.
-  Gold is the single accent in both.
+  Dark premium: a night ground, frosted-glass surfaces and one periwinkle
+  light taken from the shirt in the portrait. Dark is the default; the day
+  theme is opt-in from the nav and keeps the same structure.
 */
 @theme inline {
   --color-ground: var(--ground);
-  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-glass: var(--glass);
   --color-line: var(--line);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-on-accent: var(--on-accent);
   --color-leaf: var(--leaf);
-  --color-clay: #c4572f;
-  --color-inverse: var(--inverse);
 
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
 
-  --ease-loom: cubic-bezier(0.76, 0, 0.24, 1);
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
-  --gutter: clamp(1rem, 4vw, 3.5rem);
+  --gutter: clamp(1rem, 4vw, 3rem);
 
   color-scheme: dark;
-  --ground: #10162b;
-  --surface: #18203d;
-  --line: #2a3561;
-  --fg: #ece7dc;
-  --muted: #8d96b8;
-  --accent: #e2a43a;
-  --on-accent: #141a30;
-  --leaf: #4fa27a;
-  --inverse: #141a30;
-  --strip-alt: #e1dbcf;
-  --grain: 0.06;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --ground: #f2eee5;
-    --surface: #e9e3d6;
-    --line: #d3cbb9;
-    --fg: #141a30;
-    --muted: #59617d;
-    --accent: #a3670f;
-    --on-accent: #fffaf0;
-    --leaf: #2f7d55;
-    --inverse: #f2eee5;
-    --strip-alt: #2b3352;
-    --grain: 0.05;
-  }
+  --ground: #07080c;
+  --raised: #0e1017;
+  --glass: rgb(255 255 255 / 0.04);
+  --line: rgb(255 255 255 / 0.09);
+  --fg: #f3f4f7;
+  --muted: #8b91a3;
+  --accent: #93a6ff;
+  --accent-2: #b49bff;
+  --on-accent: #07080c;
+  --leaf: #4ade80;
+  --glow: rgb(110 128 255 / 0.35);
+  --grid: rgb(255 255 255 / 0.035);
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --ground: #f2eee5;
-  --surface: #e9e3d6;
-  --line: #d3cbb9;
-  --fg: #141a30;
-  --muted: #59617d;
-  --accent: #a3670f;
-  --on-accent: #fffaf0;
-  --leaf: #2f7d55;
-  --inverse: #f2eee5;
-  --strip-alt: #2b3352;
-  --grain: 0.05;
+  --ground: #f4f5f8;
+  --raised: #ffffff;
+  --glass: rgb(255 255 255 / 0.65);
+  --line: rgb(12 14 24 / 0.09);
+  --fg: #0b0d14;
+  --muted: #5c6376;
+  --accent: #4b5de4;
+  --accent-2: #7c5ce6;
+  --on-accent: #ffffff;
+  --leaf: #16a34a;
+  --glow: rgb(90 110 255 / 0.22);
+  --grid: rgb(12 14 24 / 0.045);
 }
 
 html {
   background: var(--color-ground);
   color: var(--color-fg);
   -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
 }
 
 html.lenis,
@@ -92,105 +74,118 @@ html.lenis body {
 }
 
 body {
-  font-family: var(--font-serif);
-  font-optical-sizing: auto;
+  font-family: var(--font-sans);
   background: var(--color-ground);
   overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-inverse);
+  color: var(--color-on-accent);
 }
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
-  border-radius: 2px;
-}
-
-.font-display {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
-}
-
-/* Condensed display cut, used for the name and section titles. */
-.display-tight {
-  font-family: var(--font-display);
-  font-variation-settings: "wdth" 75, "opsz" 96;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 0.84;
-}
-
-.tabular {
-  font-variant-numeric: tabular-nums;
+  border-radius: 6px;
 }
 
 .px-gutter {
   padding-inline: var(--gutter);
 }
 
-/* A narrow woven band: warp stripes interrupted by weft blocks. */
-.kente-band {
-  height: 10px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #e2a43a 0 14px,
-      #141a30 14px 18px,
-      #2f7d55 18px 26px,
-      #141a30 26px 30px,
-      #c4572f 30px 36px,
-      #141a30 36px 40px,
-      #e2a43a 40px 44px,
-      #2a3561 44px 72px
-    );
+.tabular {
+  font-variant-numeric: tabular-nums;
 }
 
-/* Film grain so the flat indigo reads as cloth rather than a screen. */
+/* Frosted glass panel with a hairline top highlight. */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--color-fg) 20%, var(--color-accent) 60%, var(--color-accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Faint grid that fades out towards the edges of the hero. */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 75%);
+}
+
+/* Border light that follows the pointer on cards. */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    var(--color-accent),
+    transparent 45%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: 2;
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 38s linear infinite;
+}
+
+@keyframes drift {
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+}
+.aurora {
+  animation: drift 16s ease-in-out infinite;
+}
+
+/* Grain keeps the large dark fields from banding. */
 .grain::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 60;
-  opacity: var(--grain);
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-@media (hover: hover) {
-  .work-list:hover .work-row:not(:hover) {
-    opacity: 0.3;
-  }
-}
-
-/* Hidden until the loom has finished weaving the name. */
-.hero-below {
+/* Hidden until the hero intro reveals them; see Hero.tsx. */
+[data-intro] {
   opacity: 0;
-  visibility: hidden;
-  transform: translateY(16px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .loom [data-strip],
-  .loom [data-thread] {
-    transform: none !important;
-  }
-  .hero-below {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-  }
 }
 
 /* Theme switch: the new theme is revealed by a circle from the button. */
@@ -198,4 +193,17 @@ body {
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-intro] {
+    opacity: 1;
+  }
 }

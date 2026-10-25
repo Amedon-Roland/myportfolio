@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Download, Sparkles } from "lucide-react";
 import { KENTE, weave, type Cloth } from "@/lib/weave";
+import { SectionHeading } from "./SectionHeading";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,77 +101,79 @@ export function Atelier() {
   };
 
   return (
-    <section ref={section} id="atelier" className="px-gutter bg-surface pb-32 pt-28 md:pt-40">
-      <div className="grid gap-14 md:grid-cols-12 md:items-center">
-        <div className="md:col-span-5">
-          <h2 className="display-tight text-[clamp(3.6rem,9vw,8.5rem)]">
-            Tissez
-            <br />
-            votre nom
-          </h2>
-          <p className="mt-8 max-w-[38ch] text-xl leading-relaxed text-fg/80">
-            Chaque lettre choisit un motif et deux couleurs du kente, puis le métier les tisse bande
-            après bande. Le même prénom donne toujours le même tissu.
-          </p>
-
-          <form onSubmit={submit} className="font-display mt-10 max-w-md" noValidate>
-            <label htmlFor="weave-name" className="text-[15px] text-muted">
-              Votre prénom
-            </label>
-            <div className="mt-2 flex gap-3">
-              <input
-                id="weave-name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                maxLength={24}
-                autoComplete="given-name"
-                aria-invalid={!!error}
-                aria-describedby={error ? "weave-error" : undefined}
-                className="min-w-0 flex-1 rounded-full border border-line bg-ground px-5 py-3 text-lg text-fg placeholder:text-muted/60 focus:border-accent focus:outline-none"
-                placeholder="Ama, Kodjo, Élodie…"
-              />
-              <button
-                type="submit"
-                className="rounded-full bg-accent px-6 py-3 text-lg font-medium text-on-accent transition-colors hover:bg-fg"
-              >
-                Tisser
-              </button>
-            </div>
-            {error && (
-              <p id="weave-error" role="alert" className="mt-3 text-[15px] text-accent">
-                {error}
-              </p>
-            )}
-          </form>
-        </div>
-
-        <figure className="md:col-span-6 md:col-start-7">
-          <div className="relative mx-auto w-full max-w-[560px]">
-            <canvas
-              ref={canvas}
-              width={WIDTH}
-              height={HEIGHT}
-              role="img"
-              aria-label={`Motif de kente tissé à partir du prénom ${woven}`}
-              className="block aspect-[4/5] w-full rounded-sm bg-inverse shadow-[0_40px_80px_-30px_rgba(4,6,15,0.8)]"
+    <section ref={section} id="atelier" className="px-gutter py-28 md:py-36">
+      <div className="glass relative mx-auto max-w-6xl overflow-hidden rounded-[36px] p-6 md:p-12">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full opacity-50 blur-[120px]"
+          style={{ background: "radial-gradient(closest-side, #e2a43a, transparent)" }}
+        />
+        <div className="relative grid gap-12 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-6">
+            <SectionHeading
+              tag="Atelier"
+              title="Tissez votre prénom en kente"
+              intro="Un petit clin d'œil au Togo : à Kpetoe, le kente se tisse en bandes étroites cousues bord à bord. Chaque lettre de votre prénom choisit un motif et ses couleurs. Le même prénom donne toujours le même tissu."
             />
+
+            <form onSubmit={submit} className="mt-10 max-w-md" noValidate>
+              <label htmlFor="weave-name" className="text-[13px] text-muted">
+                Votre prénom
+              </label>
+              <div className="glass mt-2 flex gap-2 rounded-full p-1.5">
+                <input
+                  id="weave-name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  maxLength={24}
+                  autoComplete="given-name"
+                  aria-invalid={!!error}
+                  aria-describedby={error ? "weave-error" : undefined}
+                  className="min-w-0 flex-1 bg-transparent px-4 text-[16px] text-fg placeholder:text-muted focus:outline-none"
+                  placeholder="Ama, Kodjo, Élodie…"
+                />
+                <button
+                  type="submit"
+                  className="flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-5 py-2.5 font-medium text-on-accent transition-transform hover:scale-[1.03]"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  Tisser
+                </button>
+              </div>
+              {error && (
+                <p id="weave-error" role="alert" className="mt-3 text-[14px] text-accent">
+                  {error}
+                </p>
+              )}
+            </form>
           </div>
-          <figcaption className="font-display mx-auto mt-4 flex max-w-[560px] flex-wrap items-center justify-between gap-4 text-[15px] text-muted">
-            <span className="tabular">
-              {cloth
-                ? `${woven}, ${cloth.strips} bandes, ${cloth.blocks} motifs, n° ${cloth.seed.toString(16).toUpperCase().slice(0, 6)}`
-                : "Le métier attend."}
-            </span>
-            <button
-              type="button"
-              onClick={download}
-              disabled={!cloth}
-              className="text-fg underline decoration-accent underline-offset-4 hover:text-accent disabled:opacity-40"
-            >
-              Télécharger le motif
-            </button>
-          </figcaption>
-        </figure>
+
+          <figure className="lg:col-span-5 lg:col-start-8">
+            <div className="glass rounded-[28px] p-3">
+              <canvas
+                ref={canvas}
+                width={WIDTH}
+                height={HEIGHT}
+                role="img"
+                aria-label={`Motif de kente tissé à partir du prénom ${woven}`}
+                className="block aspect-[4/5] w-full rounded-[20px] bg-[#141a30]"
+              />
+            </div>
+            <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-4 px-1 text-[13px] text-muted">
+              <span className="tabular">
+                {cloth ? `${woven} · ${cloth.strips} bandes · ${cloth.blocks} motifs` : "Le métier attend."}
+              </span>
+              <button
+                type="button"
+                onClick={download}
+                disabled={!cloth}
+                className="flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-fg transition-colors hover:border-fg/40 disabled:opacity-40"
+              >
+                <Download className="h-3.5 w-3.5" /> Télécharger
+              </button>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
   );

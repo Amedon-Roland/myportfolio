@@ -7,8 +7,8 @@ export const site = {
   email: "rolandamedon@gmail.com",
   github: "https://github.com/Amedon-Roland",
   url: "https://rolandamedon.vercel.app",
-  /** Portrait in /public, e.g. "/roland.jpg". Without one, a cloth woven from the name is shown. */
-  portrait: null as string | null,
+  portrait: "/roland.webp",
+  cutout: "/roland-cut.webp",
 };
 
 export const about = {
@@ -200,6 +200,33 @@ export const sideWork: Side[] = [
     url: "https://github.com/Amedon-Roland/organize_dowload_folder",
   },
 ];
+
+export const services = [
+  {
+    icon: "web",
+    title: "Sites et applications web",
+    text: "Des sites rapides sur un téléphone d'entrée de gamme, bien référencés et faciles à faire évoluer.",
+    tools: "Next.js, React, TypeScript",
+  },
+  {
+    icon: "mobile",
+    title: "Applications mobiles",
+    text: "Une seule base de code pour Android et iOS, pensée pour les connexions lentes et le Mobile Money.",
+    tools: "Flutter, Dart",
+  },
+  {
+    icon: "server",
+    title: "Back-offices et API",
+    text: "Des espaces d'administration pour que votre équipe publie, encaisse et suive tout sans moi.",
+    tools: "Laravel, Node.js, MongoDB",
+  },
+  {
+    icon: "design",
+    title: "Design produit",
+    text: "Des maquettes cliquables pour valider les parcours avant d'écrire la première ligne de code.",
+    tools: "Maquettes, prototypes",
+  },
+] as const;
 
 export const method = [
   {

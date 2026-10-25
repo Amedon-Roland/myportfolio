@@ -2,17 +2,17 @@
 
 Portfolio de Roland Amedon, développeur full-stack à Lomé.
 
-Le fil conducteur est le kente ewe de Kpetoe, tissé en bandes étroites cousues bord à bord.
-Dans le hero, le nom est découpé en bandes qui se tissent au chargement puis s'écartent sous le
-curseur. La section « Atelier » tisse un motif unique à partir d'un prénom.
+Style « dark premium » : fond nuit, panneaux en verre dépoli, lueurs bleu-violet et un thème clair
+en option. Le hero présente un portrait détouré, les projets sont en grille bento avec une fiche
+détaillée, et la section « Atelier » tisse un motif kente à partir d'un prénom.
 
 ## Stack
 
 - [Next.js 16](https://nextjs.org) (App Router, rendu statique) et React 19
 - [Tailwind CSS 4](https://tailwindcss.com)
-- [GSAP](https://gsap.com), `@gsap/react` et ScrollTrigger pour les animations
+- [GSAP](https://gsap.com), `@gsap/react`, SplitText et ScrollTrigger pour les animations
 - [Lenis](https://lenis.darkroom.engineering) pour le défilement fluide
-- Polices Google : Bricolage Grotesque (titres) et Newsreader (texte)
+- [Lucide](https://lucide.dev) pour les icônes, police Geist
 
 ## Développer
 
@@ -26,4 +26,5 @@ npm run lint
 ## Modifier le contenu
 
 Tout le texte vit dans `src/data/site.ts` : coordonnées, projets, outils et méthode.
+Le portrait est dans `public/roland.webp` (et `public/roland-cut.webp`, détouré, pour le hero).
 Les captures des projets sont dans `public/work/` (`<slug>-d.jpg`, `<slug>-d2.jpg`, `<slug>-m.jpg`).
