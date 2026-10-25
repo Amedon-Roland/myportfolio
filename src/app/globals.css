@@ -2,18 +2,20 @@
 
 /*
   Palette drawn from Ewe kente and indigo-dyed cloth.
-  Indigo is the ground, cotton the thread, gold the single accent.
+  Night: indigo ground, cotton thread. Day: cotton ground, indigo thread.
+  Gold is the single accent in both.
 */
-@theme {
-  --color-indigo-deep: #10162b;
-  --color-indigo: #18203d;
-  --color-indigo-line: #2a3561;
-  --color-cotton: #ece7dc;
-  --color-haze: #8d96b8;
-  --color-gold: #e2a43a;
-  --color-leaf: #4fa27a;
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-leaf: var(--leaf);
   --color-clay: #c4572f;
-  --color-ink: #141a30;
+  --color-inverse: var(--inverse);
 
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
@@ -23,13 +25,57 @@
 }
 
 :root {
-  color-scheme: dark;
   --gutter: clamp(1rem, 4vw, 3.5rem);
+
+  color-scheme: dark;
+  --ground: #10162b;
+  --surface: #18203d;
+  --line: #2a3561;
+  --fg: #ece7dc;
+  --muted: #8d96b8;
+  --accent: #e2a43a;
+  --on-accent: #141a30;
+  --leaf: #4fa27a;
+  --inverse: #141a30;
+  --strip-alt: #e1dbcf;
+  --grain: 0.06;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --ground: #f2eee5;
+    --surface: #e9e3d6;
+    --line: #d3cbb9;
+    --fg: #141a30;
+    --muted: #59617d;
+    --accent: #a3670f;
+    --on-accent: #fffaf0;
+    --leaf: #2f7d55;
+    --inverse: #f2eee5;
+    --strip-alt: #2b3352;
+    --grain: 0.05;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ground: #f2eee5;
+  --surface: #e9e3d6;
+  --line: #d3cbb9;
+  --fg: #141a30;
+  --muted: #59617d;
+  --accent: #a3670f;
+  --on-accent: #fffaf0;
+  --leaf: #2f7d55;
+  --inverse: #f2eee5;
+  --strip-alt: #2b3352;
+  --grain: 0.05;
 }
 
 html {
-  background: var(--color-indigo-deep);
-  color: var(--color-cotton);
+  background: var(--color-ground);
+  color: var(--color-fg);
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
@@ -48,17 +94,17 @@ html.lenis body {
 body {
   font-family: var(--font-serif);
   font-optical-sizing: auto;
-  background: var(--color-indigo-deep);
+  background: var(--color-ground);
   overflow-x: clip;
 }
 
 ::selection {
-  background: var(--color-gold);
-  color: var(--color-ink);
+  background: var(--color-accent);
+  color: var(--color-inverse);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -91,14 +137,14 @@ body {
   background:
     repeating-linear-gradient(
       90deg,
-      var(--color-gold) 0 14px,
-      var(--color-ink) 14px 18px,
-      var(--color-leaf) 18px 26px,
-      var(--color-ink) 26px 30px,
-      var(--color-clay) 30px 36px,
-      var(--color-ink) 36px 40px,
-      var(--color-gold) 40px 44px,
-      var(--color-indigo-line) 44px 72px
+      #e2a43a 0 14px,
+      #141a30 14px 18px,
+      #2f7d55 18px 26px,
+      #141a30 26px 30px,
+      #c4572f 30px 36px,
+      #141a30 36px 40px,
+      #e2a43a 40px 44px,
+      #2a3561 44px 72px
     );
 }
 
@@ -109,7 +155,7 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 60;
-  opacity: 0.06;
+  opacity: var(--grain);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -145,4 +191,11 @@ body {
     visibility: visible;
     transform: none;
   }
+}
+
+/* Theme switch: the new theme is revealed by a circle from the button. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }

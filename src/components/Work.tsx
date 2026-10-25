@@ -47,14 +47,14 @@ export function Work() {
           <br />
           choisis
         </h2>
-        <p className="max-w-[38ch] text-xl leading-relaxed text-cotton/80 md:col-span-5 md:col-start-8 md:justify-self-end">
+        <p className="max-w-[38ch] text-xl leading-relaxed text-fg/80 md:col-span-5 md:col-start-8 md:justify-self-end">
           Six produits en ligne, construits de bout en bout. Survolez un nom pour voir le produit,
           ouvrez-le pour lire comment il a été fait.
         </p>
       </div>
 
       <ul
-        className="work-list border-b border-indigo-line"
+        className="work-list border-b border-line"
         onPointerEnter={() => showPreview(true)}
         onPointerLeave={() => {
           showPreview(false);
@@ -69,7 +69,7 @@ export function Work() {
         }}
       >
         {projects.map((p, i) => (
-          <li key={p.slug} className="work-row border-t border-indigo-line transition-opacity duration-500">
+          <li key={p.slug} className="work-row border-t border-line transition-opacity duration-500">
             <button
               type="button"
               onClick={() => setOpen(i)}
@@ -83,8 +83,8 @@ export function Work() {
                   {p.name}
                 </span>
               </span>
-              <span className="col-span-8 mt-3 text-lg text-cotton/70 md:col-span-3 md:mt-0">{p.domain}</span>
-              <span className="font-display tabular col-span-4 mt-3 justify-self-end text-[15px] text-haze md:col-span-2 md:mt-0">
+              <span className="col-span-8 mt-3 text-lg text-fg/70 md:col-span-3 md:mt-0">{p.domain}</span>
+              <span className="font-display tabular col-span-4 mt-3 justify-self-end text-[15px] text-muted md:col-span-2 md:mt-0">
                 {p.year}
               </span>
 
@@ -128,7 +128,7 @@ export function Work() {
       <div className="mt-28 grid gap-10 md:grid-cols-12">
         <div className="md:col-span-4">
           <h3 className="font-display text-2xl font-semibold tracking-tight">Aussi sur l&apos;établi</h3>
-          <p className="mt-3 max-w-[30ch] text-lg text-cotton/70">
+          <p className="mt-3 max-w-[30ch] text-lg text-fg/70">
             Des outils internes, des expériences et quelques scripts partagés en open source.
           </p>
         </div>
@@ -136,14 +136,14 @@ export function Work() {
           {sideWork.map((s) => (
             <li
               key={s.name}
-              className="grid grid-cols-12 gap-x-4 gap-y-1 border-t border-indigo-line py-4 last:border-b"
+              className="grid grid-cols-12 gap-x-4 gap-y-1 border-t border-line py-4 last:border-b"
             >
               <span className="font-display col-span-12 text-[17px] font-medium sm:col-span-4">{s.name}</span>
-              <span className="col-span-12 text-[17px] text-cotton/70 sm:col-span-5">{s.note}</span>
-              <span className="font-display col-span-12 flex items-baseline justify-between gap-4 text-sm text-haze sm:col-span-3 sm:flex-col sm:items-end sm:gap-1">
+              <span className="col-span-12 text-[17px] text-fg/70 sm:col-span-5">{s.note}</span>
+              <span className="font-display col-span-12 flex items-baseline justify-between gap-4 text-sm text-muted sm:col-span-3 sm:flex-col sm:items-end sm:gap-1">
                 {s.stack}
                 {s.url && (
-                  <a href={s.url} target="_blank" rel="noreferrer" className="text-cotton underline decoration-gold decoration-1 underline-offset-4 hover:text-gold">
+                  <a href={s.url} target="_blank" rel="noreferrer" className="text-fg underline decoration-accent decoration-1 underline-offset-4 hover:text-accent">
                     Code source
                   </a>
                 )}

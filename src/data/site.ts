@@ -7,6 +7,22 @@ export const site = {
   email: "rolandamedon@gmail.com",
   github: "https://github.com/Amedon-Roland",
   url: "https://rolandamedon.vercel.app",
+  /** Portrait in /public, e.g. "/roland.jpg". Without one, a cloth woven from the name is shown. */
+  portrait: null as string | null,
+};
+
+export const about = {
+  lead: "Je m'appelle Roland Amedon. Je vis et je travaille à Lomé, où je signe mes projets sous le nom RolandTech.",
+  body: [
+    "Mes projets naissent de besoins très concrets autour de moi : une église qui veut diffuser ses cultes, des parents qui veulent payer l'école sans faire la queue, une famille qui veut garder la trace de ses anciens.",
+    "Je m'occupe de tout le parcours, de la première conversation à la mise en ligne : le design, le site, l'application mobile, le back-office et la prise en main par votre équipe.",
+  ],
+  facts: [
+    { label: "Basé à", value: "Lomé, Togo" },
+    { label: "Studio", value: "RolandTech" },
+    { label: "Projets en ligne", value: "Six, et d'autres en cours" },
+    { label: "Sur GitHub", value: "Depuis 2023" },
+  ],
 };
 
 export type Project = {

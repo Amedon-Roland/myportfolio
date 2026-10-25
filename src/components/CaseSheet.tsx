@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
-import { useLenis } from "lenis/react";
+import { useLenis } from "./SmoothScroll";
 import { projects } from "@/data/site";
 
 type Props = {
@@ -33,7 +33,7 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
         .timeline({
           onComplete: () => {
             setShown(null);
-            lenis?.start();
+            lenis.current?.start();
             document.documentElement.style.overflow = "";
             returnFocus.current?.focus();
           },
@@ -52,7 +52,7 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
     if (!opened) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     returnFocus.current = document.activeElement as HTMLElement;
-    lenis?.stop();
+    lenis.current?.stop();
     document.documentElement.style.overflow = "hidden";
     gsap.fromTo(backdrop.current, { autoAlpha: 0 }, { autoAlpha: 1, duration: reduce ? 0 : 0.4 });
     gsap.fromTo(
@@ -90,24 +90,24 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
 
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="case-title">
-      <div ref={backdrop} className="absolute inset-0 bg-indigo-deep/75 backdrop-blur-sm" onClick={onClose} />
+      <div ref={backdrop} className="absolute inset-0 bg-ground/75 backdrop-blur-sm" onClick={onClose} />
 
       <div
         ref={panel}
         data-lenis-prevent
-        className="absolute inset-x-0 bottom-0 top-[4vh] overflow-y-auto overscroll-contain rounded-t-[22px] bg-cotton text-ink"
+        className="absolute inset-x-0 bottom-0 top-[4vh] overflow-y-auto overscroll-contain rounded-t-[22px] bg-fg text-inverse"
       >
         <div className="h-2.5 w-full" style={{ background: p.thread }} />
 
-        <div className="font-display px-gutter sticky top-0 z-10 flex items-center justify-between bg-cotton/90 py-4 text-[15px] backdrop-blur">
-          <span className="text-ink/60">
+        <div className="font-display px-gutter sticky top-0 z-10 flex items-center justify-between bg-fg/90 py-4 text-[15px] backdrop-blur">
+          <span className="text-inverse/60">
             Projet {shown + 1} sur {projects.length}
           </span>
           <button
             ref={closeBtn}
             type="button"
             onClick={onClose}
-            className="rounded-full border border-ink/20 px-4 py-1.5 transition-colors hover:bg-ink hover:text-cotton"
+            className="rounded-full border border-inverse/20 px-4 py-1.5 transition-colors hover:bg-inverse hover:text-fg"
           >
             Fermer
           </button>
@@ -123,27 +123,27 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
             </p>
           </header>
 
-          <dl className="font-display mt-12 grid grid-cols-2 gap-6 border-y border-ink/15 py-6 text-[15px] md:grid-cols-4">
+          <dl className="font-display mt-12 grid grid-cols-2 gap-6 border-y border-inverse/15 py-6 text-[15px] md:grid-cols-4">
             <div>
-              <dt className="text-ink/55">Année</dt>
+              <dt className="text-inverse/55">Année</dt>
               <dd className="tabular mt-1">{p.year}</dd>
             </div>
             <div>
-              <dt className="text-ink/55">Domaine</dt>
+              <dt className="text-inverse/55">Domaine</dt>
               <dd className="mt-1">{p.domain}</dd>
             </div>
             <div>
-              <dt className="text-ink/55">Rôle</dt>
+              <dt className="text-inverse/55">Rôle</dt>
               <dd className="mt-1">{p.role}</dd>
             </div>
             <div>
-              <dt className="text-ink/55">Technologies</dt>
+              <dt className="text-inverse/55">Technologies</dt>
               <dd className="mt-1">{p.stack.join(", ")}</dd>
             </div>
           </dl>
 
           <figure className="mt-12">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[4px] bg-ink/5 shadow-[0_30px_60px_-30px_rgba(20,26,48,0.45)]">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[4px] bg-inverse/5 shadow-[0_30px_60px_-30px_rgba(20,26,48,0.45)]">
               <Image
                 src={`/work/${p.slug}-d.jpg`}
                 alt={`Page d'accueil de ${p.name} sur ordinateur`}
@@ -153,7 +153,7 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
                 priority
               />
             </div>
-            {host && <figcaption className="font-display mt-3 text-sm text-ink/55">{host}</figcaption>}
+            {host && <figcaption className="font-display mt-3 text-sm text-inverse/55">{host}</figcaption>}
           </figure>
 
           <div className="mt-16 grid gap-12 md:grid-cols-12">
@@ -175,7 +175,7 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
           </div>
 
           <div className="mt-16 grid items-start gap-6 md:grid-cols-12">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[4px] bg-ink/5 md:col-span-8">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[4px] bg-inverse/5 md:col-span-8">
               <Image
                 src={`/work/${p.slug}-d2.jpg`}
                 alt={`Une section intérieure de ${p.name}`}
@@ -184,7 +184,7 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
                 className="object-cover object-top"
               />
             </div>
-            <div className="relative mx-auto aspect-[390/844] w-[62%] overflow-hidden rounded-[26px] border-[6px] border-ink bg-ink md:col-span-3 md:col-start-10 md:w-full">
+            <div className="relative mx-auto aspect-[390/844] w-[62%] overflow-hidden rounded-[26px] border-[6px] border-inverse bg-inverse md:col-span-3 md:col-start-10 md:w-full">
               <Image
                 src={`/work/${p.slug}-m.jpg`}
                 alt={`${p.name} sur téléphone`}
@@ -195,13 +195,13 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
             </div>
           </div>
 
-          <div className="font-display mt-16 flex flex-col gap-6 border-t border-ink/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="font-display mt-16 flex flex-col gap-6 border-t border-inverse/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
             {p.url ? (
               <a
                 href={p.url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex w-fit items-center rounded-full bg-ink px-6 py-3 text-cotton transition-colors hover:bg-indigo-line"
+                className="inline-flex w-fit items-center rounded-full bg-inverse px-6 py-3 text-fg transition-colors hover:bg-line"
               >
                 Visiter le site en ligne
               </a>
@@ -213,8 +213,8 @@ export function CaseSheet({ index, onClose, onNavigate }: Props) {
               onClick={() => onNavigate(next)}
               className="group text-left sm:text-right"
             >
-              <span className="block text-sm text-ink/55">Projet suivant</span>
-              <span className="block text-3xl font-semibold tracking-tight underline decoration-transparent decoration-2 underline-offset-8 transition-colors group-hover:decoration-[var(--color-gold)]">
+              <span className="block text-sm text-inverse/55">Projet suivant</span>
+              <span className="block text-3xl font-semibold tracking-tight underline decoration-transparent decoration-2 underline-offset-8 transition-colors group-hover:decoration-[var(--color-accent)]">
                 {projects[next].name}
               </span>
             </button>

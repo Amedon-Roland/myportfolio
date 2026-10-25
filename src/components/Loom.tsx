@@ -103,7 +103,7 @@ export function Loom({ lines, onWoven }: LoomProps) {
             className="display-tight absolute inset-0 will-change-transform"
             style={{
               clipPath: `inset(0 ${100 - ((i + 1) / STRIPS) * 100}% 0 ${(i / STRIPS) * 100}%)`,
-              color: i % 2 ? "#e1dbcf" : "var(--color-cotton)",
+              color: i % 2 ? "var(--strip-alt)" : "var(--color-fg)",
               transform: `translateY(${i % 2 ? 104 : -104}%)`,
             }}
           >
@@ -115,7 +115,7 @@ export function Loom({ lines, onWoven }: LoomProps) {
       <div
         aria-hidden
         data-thread
-        className="absolute left-0 right-0 top-1/2 h-[2px] origin-left bg-gold"
+        className="absolute left-0 right-0 top-1/2 h-[2px] origin-left bg-accent"
         style={{ transform: "scaleX(0)" }}
       />
     </div>

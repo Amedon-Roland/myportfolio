@@ -99,7 +99,7 @@ export function Atelier() {
   };
 
   return (
-    <section ref={section} id="atelier" className="px-gutter bg-indigo pb-32 pt-28 md:pt-40">
+    <section ref={section} id="atelier" className="px-gutter bg-surface pb-32 pt-28 md:pt-40">
       <div className="grid gap-14 md:grid-cols-12 md:items-center">
         <div className="md:col-span-5">
           <h2 className="display-tight text-[clamp(3.6rem,9vw,8.5rem)]">
@@ -107,13 +107,13 @@ export function Atelier() {
             <br />
             votre nom
           </h2>
-          <p className="mt-8 max-w-[38ch] text-xl leading-relaxed text-cotton/80">
+          <p className="mt-8 max-w-[38ch] text-xl leading-relaxed text-fg/80">
             Chaque lettre choisit un motif et deux couleurs du kente, puis le métier les tisse bande
             après bande. Le même prénom donne toujours le même tissu.
           </p>
 
           <form onSubmit={submit} className="font-display mt-10 max-w-md" noValidate>
-            <label htmlFor="weave-name" className="text-[15px] text-haze">
+            <label htmlFor="weave-name" className="text-[15px] text-muted">
               Votre prénom
             </label>
             <div className="mt-2 flex gap-3">
@@ -125,18 +125,18 @@ export function Atelier() {
                 autoComplete="given-name"
                 aria-invalid={!!error}
                 aria-describedby={error ? "weave-error" : undefined}
-                className="min-w-0 flex-1 rounded-full border border-indigo-line bg-indigo-deep px-5 py-3 text-lg text-cotton placeholder:text-haze/60 focus:border-gold focus:outline-none"
+                className="min-w-0 flex-1 rounded-full border border-line bg-ground px-5 py-3 text-lg text-fg placeholder:text-muted/60 focus:border-accent focus:outline-none"
                 placeholder="Ama, Kodjo, Élodie…"
               />
               <button
                 type="submit"
-                className="rounded-full bg-gold px-6 py-3 text-lg font-medium text-ink transition-colors hover:bg-cotton"
+                className="rounded-full bg-accent px-6 py-3 text-lg font-medium text-on-accent transition-colors hover:bg-fg"
               >
                 Tisser
               </button>
             </div>
             {error && (
-              <p id="weave-error" role="alert" className="mt-3 text-[15px] text-gold">
+              <p id="weave-error" role="alert" className="mt-3 text-[15px] text-accent">
                 {error}
               </p>
             )}
@@ -151,10 +151,10 @@ export function Atelier() {
               height={HEIGHT}
               role="img"
               aria-label={`Motif de kente tissé à partir du prénom ${woven}`}
-              className="block aspect-[4/5] w-full rounded-sm bg-ink shadow-[0_40px_80px_-30px_rgba(4,6,15,0.8)]"
+              className="block aspect-[4/5] w-full rounded-sm bg-inverse shadow-[0_40px_80px_-30px_rgba(4,6,15,0.8)]"
             />
           </div>
-          <figcaption className="font-display mx-auto mt-4 flex max-w-[560px] flex-wrap items-center justify-between gap-4 text-[15px] text-haze">
+          <figcaption className="font-display mx-auto mt-4 flex max-w-[560px] flex-wrap items-center justify-between gap-4 text-[15px] text-muted">
             <span className="tabular">
               {cloth
                 ? `${woven}, ${cloth.strips} bandes, ${cloth.blocks} motifs, n° ${cloth.seed.toString(16).toUpperCase().slice(0, 6)}`
@@ -164,7 +164,7 @@ export function Atelier() {
               type="button"
               onClick={download}
               disabled={!cloth}
-              className="text-cotton underline decoration-gold underline-offset-4 hover:text-gold disabled:opacity-40"
+              className="text-fg underline decoration-accent underline-offset-4 hover:text-accent disabled:opacity-40"
             >
               Télécharger le motif
             </button>

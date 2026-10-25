@@ -27,7 +27,7 @@ export function Contact() {
         </h2>
 
         <div className="mt-14 grid gap-12 md:mt-20 md:grid-cols-12">
-          <p className="max-w-[36ch] text-[clamp(1.25rem,1.9vw,1.7rem)] leading-snug text-cotton/85 md:col-span-6">
+          <p className="max-w-[36ch] text-[clamp(1.25rem,1.9vw,1.7rem)] leading-snug text-fg/85 md:col-span-6">
             Un site à refaire, une application à lancer, un outil interne qui vous ferait gagner des
             heures : écrivez-moi en quelques phrases et parlons-en.
           </p>
@@ -35,7 +35,7 @@ export function Contact() {
           <div className="font-display md:col-span-6 md:col-start-7">
             <a
               href={`mailto:${site.email}`}
-              className="block break-all text-[clamp(1.6rem,3.4vw,3rem)] font-medium leading-tight tracking-[-0.02em] underline decoration-gold decoration-2 underline-offset-[0.18em] transition-colors hover:text-gold"
+              className="block break-all text-[clamp(1.6rem,3.4vw,3rem)] font-medium leading-tight tracking-[-0.02em] underline decoration-accent decoration-2 underline-offset-[0.18em] transition-colors hover:text-accent"
             >
               {site.email}
             </a>
@@ -43,7 +43,7 @@ export function Contact() {
               <button
                 type="button"
                 onClick={copy}
-                className="rounded-full border border-indigo-line px-5 py-2.5 transition-colors hover:border-cotton"
+                className="rounded-full border border-line px-5 py-2.5 transition-colors hover:border-fg"
               >
                 {copied ? "Adresse copiée" : "Copier l'adresse"}
               </button>
@@ -51,7 +51,7 @@ export function Contact() {
                 href={site.github}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-indigo-line px-5 py-2.5 transition-colors hover:border-cotton"
+                className="rounded-full border border-line px-5 py-2.5 transition-colors hover:border-fg"
               >
                 GitHub
               </a>
@@ -65,13 +65,13 @@ export function Contact() {
 
       <footer className="mt-32">
         <div className="kente-band" />
-        <div className="font-display px-gutter flex flex-col gap-4 py-8 text-[15px] text-haze sm:flex-row sm:items-center sm:justify-between">
-          <span className="flex items-center gap-3 text-cotton">
+        <div className="font-display px-gutter flex flex-col gap-4 py-8 text-[15px] text-muted sm:flex-row sm:items-center sm:justify-between">
+          <span className="flex items-center gap-3 text-fg">
             <WovenMark className="h-4 w-4" />
             © 2026 Roland Amedon
           </span>
           <span>Conçu et codé à Lomé, Togo</span>
-          <a href="#haut" className="hover:text-cotton">
+          <a href="#haut" className="hover:text-fg">
             Revenir en haut
           </a>
         </div>

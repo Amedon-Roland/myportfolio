@@ -23,7 +23,7 @@ export function Hero() {
         ref={below}
         className="hero-below mt-10 grid gap-10 md:mt-14 md:grid-cols-12 md:items-end"
       >
-        <p className="text-[clamp(1.3rem,2.1vw,1.9rem)] leading-[1.32] text-cotton md:col-span-7 lg:col-span-6">
+        <p className="text-[clamp(1.3rem,2.1vw,1.9rem)] leading-[1.32] text-fg md:col-span-7 lg:col-span-6">
           Développeur full-stack à Lomé. Je conçois et je code des sites, des applications mobiles et
           des back-offices pour les églises, les écoles, la santé et les familles d&apos;Afrique de
           l&apos;Ouest.
@@ -31,7 +31,7 @@ export function Hero() {
 
         <dl className="font-display grid grid-cols-2 gap-x-8 gap-y-4 text-[15px] md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-9">
           <div>
-            <dt className="text-haze">Statut</dt>
+            <dt className="text-muted">Statut</dt>
             <dd className="mt-1 flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-leaf opacity-60" />
@@ -41,17 +41,17 @@ export function Hero() {
             </dd>
           </div>
           <div>
-            <dt className="text-haze">Heure à {site.city}</dt>
+            <dt className="text-muted">Heure à {site.city}</dt>
             <dd className="mt-1">
               <LiveClock />
             </dd>
           </div>
           <div>
-            <dt className="text-haze">Spécialité</dt>
+            <dt className="text-muted">Spécialité</dt>
             <dd className="mt-1">Web, mobile et back-office</dd>
           </div>
           <div>
-            <dt className="text-haze">Outils</dt>
+            <dt className="text-muted">Outils</dt>
             <dd className="mt-1">Next.js, Flutter, Laravel</dd>
           </div>
         </dl>

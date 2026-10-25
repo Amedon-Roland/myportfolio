@@ -46,17 +46,32 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#10162b",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#10162b" },
+    { media: "(prefers-color-scheme: light)", color: "#f2eee5" },
+  ],
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fr" className={`${bricolage.variable} ${newsreader.variable} antialiased`}>
+    <html
+      lang="fr"
+      className={`${bricolage.variable} ${newsreader.variable} antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Apply a saved theme before the first paint; otherwise the system preference wins. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="grain min-h-dvh">
         <a
           href="#contenu"
-          className="font-display sr-only z-[70] rounded bg-gold px-4 py-2 text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="font-display sr-only z-[70] rounded bg-accent px-4 py-2 text-on-accent focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
         >
           Aller au contenu
         </a>
