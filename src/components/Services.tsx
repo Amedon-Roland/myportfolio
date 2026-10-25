@@ -1,10 +1,10 @@
 "use client";
 
-import { Globe, PenTool, Server, Smartphone } from "lucide-react";
+import { Database, Globe, Server, Smartphone } from "lucide-react";
 import { services } from "@/data/site";
 import { SectionHeading } from "./SectionHeading";
 
-const icons = { web: Globe, mobile: Smartphone, server: Server, design: PenTool };
+const icons = { data: Database, web: Globe, mobile: Smartphone, server: Server };
 
 function spotlight(e: React.PointerEvent<HTMLElement>) {
   const box = e.currentTarget.getBoundingClientRect();
@@ -24,8 +24,8 @@ export function Services() {
         <SectionHeading
           tag="Services"
           align="center"
-          title="Du premier croquis à la mise en ligne"
-          intro="Un seul interlocuteur pour le design, le web, le mobile et le back-office. Moins d'allers-retours, un produit cohérent."
+          title="De la donnée à la mise en ligne"
+          intro="Un seul interlocuteur pour la data, le web, le mobile et le back-office. Moins d'allers-retours, un produit cohérent."
         />
 
         <ul className="mt-14 grid gap-5 sm:grid-cols-2">

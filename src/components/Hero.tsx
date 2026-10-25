@@ -83,13 +83,14 @@ export function Hero() {
             data-headline
             className="mt-7 text-[clamp(2.6rem,5vw,4.6rem)] font-semibold leading-[1.02] tracking-[-0.045em]"
           >
-            Je crée des <span className="text-gradient">produits web et mobile</span> qui servent
-            vraiment.
+            Je transforme les <span className="text-gradient">données</span> en produits qui
+            servent vraiment.
           </h1>
 
           <p data-intro data-rise className="mt-7 max-w-[46ch] text-[clamp(1.05rem,1.4vw,1.2rem)] leading-relaxed text-muted">
-            Je suis Roland Amedon, développeur full-stack à Lomé. Sites, applications et back-offices
-            pour les églises, les écoles, la santé et les entreprises d&apos;Afrique de l&apos;Ouest.
+            Je suis Roland Amedon, data engineer et développeur full-stack à Lomé. Je construis des
+            pipelines de données, des tableaux de bord et les applications web et mobile qui s&apos;en
+            servent.
           </p>
 
           <div data-intro data-rise className="mt-9 flex flex-wrap items-center gap-3">
@@ -128,7 +129,7 @@ export function Hero() {
             />
           </div>
 
-          <div data-intro data-chip data-depth="26" className="glass absolute -left-4 bottom-[30%] rounded-2xl px-4 py-3 text-[13px] sm:-left-16">
+          <div data-intro data-chip data-depth="26" className="glass absolute left-0 bottom-[30%] rounded-2xl px-4 py-3 text-[13px] xl:-left-16">
             <div className="flex items-center gap-1.5 text-muted">
               <MapPin className="h-3.5 w-3.5" /> {site.city}, {site.country}
             </div>
@@ -137,13 +138,13 @@ export function Hero() {
             </div>
           </div>
 
-          <div data-intro data-chip data-depth="40" className="glass absolute -right-4 top-[22%] rounded-2xl px-4 py-3 sm:-right-12">
+          <div data-intro data-chip data-depth="40" className="glass absolute right-0 top-[22%] rounded-2xl px-4 py-3 xl:-right-12">
             <div className="text-[28px] font-semibold leading-none tracking-tight">{projects.length}</div>
             <div className="mt-1 text-[13px] text-muted">produits en ligne</div>
           </div>
 
-          <div data-intro data-chip data-depth="18" className="glass absolute bottom-[3%] right-[-2%] whitespace-nowrap rounded-full px-4 py-2 text-[13px] sm:right-[-8%]">
-            Next.js · Flutter · Laravel
+          <div data-intro data-chip data-depth="18" className="glass absolute bottom-[3%] right-0 whitespace-nowrap rounded-full px-4 py-2 text-[13px] xl:right-[-8%]">
+            Python · SQL · Next.js
           </div>
         </div>
       </div>

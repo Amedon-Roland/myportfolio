@@ -12,12 +12,12 @@ const geist = Geist({
 });
 
 const description =
-  "Roland Amedon, développeur full-stack à Lomé. Sites, applications mobiles et back-offices pour les églises, les écoles, la santé et les entreprises d'Afrique de l'Ouest.";
+  "Roland Amedon, data engineer et développeur full-stack à Lomé. Pipelines de données, tableaux de bord, sites et applications mobiles pour les organisations d'Afrique de l'Ouest.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Roland Amedon, développeur full-stack à Lomé",
+    default: "Roland Amedon, data engineer et développeur full-stack",
     template: "%s, Roland Amedon",
   },
   description,
@@ -27,12 +27,12 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "/",
     siteName: site.name,
-    title: "Roland Amedon, développeur full-stack à Lomé",
+    title: "Roland Amedon, data engineer et développeur full-stack",
     description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Roland Amedon, développeur full-stack à Lomé",
+    title: "Roland Amedon, data engineer et développeur full-stack",
     description,
   },
 };

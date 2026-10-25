@@ -108,8 +108,8 @@ export function Atelier() {
           className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full opacity-50 blur-[120px]"
           style={{ background: "radial-gradient(closest-side, #e2a43a, transparent)" }}
         />
-        <div className="relative grid gap-12 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-6">
+        <div className="relative grid min-w-0 gap-12 lg:grid-cols-12 lg:items-center">
+          <div className="min-w-0 lg:col-span-6">
             <SectionHeading
               tag="Atelier"
               title="Tissez votre prénom en kente"
@@ -148,7 +148,7 @@ export function Atelier() {
             </form>
           </div>
 
-          <figure className="lg:col-span-5 lg:col-start-8">
+          <figure className="min-w-0 lg:col-span-5 lg:col-start-8">
             <div className="glass rounded-[28px] p-3">
               <canvas
                 ref={canvas}
@@ -156,7 +156,7 @@ export function Atelier() {
                 height={HEIGHT}
                 role="img"
                 aria-label={`Motif de kente tissé à partir du prénom ${woven}`}
-                className="block aspect-[4/5] w-full rounded-[20px] bg-[#141a30]"
+                className="block aspect-[4/5] h-auto w-full max-w-full rounded-[20px] bg-[#141a30]"
               />
             </div>
             <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-4 px-1 text-[13px] text-muted">

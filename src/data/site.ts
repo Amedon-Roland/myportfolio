@@ -1,6 +1,6 @@
 export const site = {
   name: "Roland Amedon",
-  role: "Développeur full-stack",
+  role: "Data engineer et développeur full-stack",
   city: "Lomé",
   country: "Togo",
   timeZone: "Africa/Lome",
@@ -12,10 +12,10 @@ export const site = {
 };
 
 export const about = {
-  lead: "Je m'appelle Roland Amedon. Je vis et je travaille à Lomé, où je signe mes projets sous le nom RolandTech.",
+  lead: "Je m'appelle Roland Amedon. Data engineer et développeur full-stack, je vis et je travaille à Lomé, où je signe mes projets sous le nom RolandTech.",
   body: [
     "Mes projets naissent de besoins très concrets autour de moi : une église qui veut diffuser ses cultes, des parents qui veulent payer l'école sans faire la queue, une famille qui veut garder la trace de ses anciens.",
-    "Je m'occupe de tout le parcours, de la première conversation à la mise en ligne : le design, le site, l'application mobile, le back-office et la prise en main par votre équipe.",
+    "Ma spécialité : faire circuler les données proprement, de leur source jusqu'aux tableaux de bord et aux applications qui s'en servent. Je m'occupe de tout le parcours, des pipelines au site, à l'application mobile et au back-office.",
   ],
   facts: [
     { label: "Basé à", value: "Lomé, Togo" },
@@ -203,6 +203,12 @@ export const sideWork: Side[] = [
 
 export const services = [
   {
+    icon: "data",
+    title: "Data engineering",
+    text: "Collecter, nettoyer et centraliser vos données dans des pipelines fiables, prêts pour l'analyse et les tableaux de bord.",
+    tools: "Python, Pandas, SQL",
+  },
+  {
     icon: "web",
     title: "Sites et applications web",
     text: "Des sites rapides sur un téléphone d'entrée de gamme, bien référencés et faciles à faire évoluer.",
@@ -220,13 +226,17 @@ export const services = [
     text: "Des espaces d'administration pour que votre équipe publie, encaisse et suive tout sans moi.",
     tools: "Laravel, Node.js, MongoDB",
   },
-  {
-    icon: "design",
-    title: "Design produit",
-    text: "Des maquettes cliquables pour valider les parcours avant d'écrire la première ligne de code.",
-    tools: "Maquettes, prototypes",
-  },
 ] as const;
+
+/** Data profile: what each stage of the pipeline covers, and with which tools. */
+export const dataStages = [
+  { step: "Collecter", text: "Extraire les données d'API, de bases et de fichiers Excel ou CSV.", tools: "Python, SQL" },
+  { step: "Transformer", text: "Nettoyer, croiser et structurer avec des scripts reproductibles.", tools: "Pandas, NumPy" },
+  { step: "Modéliser", text: "Construire des modèles de prédiction et de classification.", tools: "Scikit-learn" },
+  { step: "Restituer", text: "Livrer des tableaux de bord que l'équipe consulte sans moi.", tools: "Power BI, Tableau" },
+];
+
+export const dataTools = ["Python", "Pandas", "NumPy", "SQL", "Scikit-learn", "Power BI", "Tableau", "Jupyter"];
 
 export const method = [
   {
@@ -245,11 +255,4 @@ export const method = [
     title: "Transmettre",
     text: "Chaque projet part avec son espace d'administration et une prise en main. Votre équipe publie seule, sans m'appeler pour changer une date.",
   },
-];
-
-export const craft = [
-  { group: "Web", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP"] },
-  { group: "Mobile", items: ["Flutter", "Dart"] },
-  { group: "Serveur et données", items: ["Laravel", "PHP", "Node.js", "MongoDB", "Redis"] },
-  { group: "Analyse", items: ["Python", "Jupyter"] },
 ];

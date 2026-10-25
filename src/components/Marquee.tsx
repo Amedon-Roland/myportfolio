@@ -1,4 +1,9 @@
 const items = [
+  "Python",
+  "Pandas",
+  "SQL",
+  "Scikit-learn",
+  "Power BI",
   "Next.js",
   "React",
   "TypeScript",
@@ -10,8 +15,8 @@ const items = [
   "MongoDB",
   "Redis",
   "Tailwind CSS",
-  "GSAP",
-  "Python",
+  "NumPy",
+  "Tableau",
   "Mobile Money",
 ];
 

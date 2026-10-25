@@ -45,7 +45,7 @@ export function Contact() {
           </span>
 
           <h2 className="mx-auto mt-7 max-w-[14ch] text-[clamp(2.6rem,7vw,5.8rem)] font-semibold leading-[1] tracking-[-0.05em]">
-            Un projet en tête ? <span className="text-gradient">Parlons-en.</span>
+            Un projet en tête&nbsp;? <span className="text-gradient inline-block whitespace-nowrap">Parlons-en.</span>
           </h2>
           <p className="mx-auto mt-6 max-w-[48ch] text-[1.08rem] leading-relaxed text-muted">
             Un site à refaire, une application à lancer, un outil interne qui vous ferait gagner des

@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
+  { href: "#data", label: "Data" },
   { href: "#travaux", label: "Projets" },
   { href: "#services", label: "Services" },
   { href: "#a-propos", label: "À propos" },
@@ -36,7 +37,7 @@ export function Nav() {
           <span className="hidden text-[15px] font-medium tracking-tight sm:inline">Roland Amedon</span>
         </a>
 
-        <nav aria-label="Principale" className="hidden md:block">
+        <nav aria-label="Principale" className="hidden lg:block">
           <ul className="flex items-center gap-1 text-[14px]">
             {links.map((l) => (
               <li key={l.href}>
