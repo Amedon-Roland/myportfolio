@@ -25,10 +25,17 @@ export const services: { title: T; text: T }[] = [
     },
   },
   {
+    title: { fr: "Data engineering", en: "Data engineering" },
+    text: {
+      fr: "Collecter, nettoyer et croiser vos données, puis les rendre lisibles dans des tableaux de bord.",
+      en: "Collect, clean and combine your data, then make it readable in dashboards.",
+    },
+  },
+  {
     title: { fr: "Applications mobiles", en: "Mobile apps" },
     text: {
-      fr: "Une seule application pour Android et iOS, avec paiement Mobile Money.",
-      en: "One app for Android and iOS, with Mobile Money payments.",
+      fr: "Une seule application pour Android et iOS, développée avec Flutter.",
+      en: "One app for Android and iOS, built with Flutter.",
     },
   },
 ];
@@ -37,7 +44,9 @@ export const stack = [
   { group: { fr: "Web", en: "Web" } as T, items: "Next.js, React, TypeScript, Tailwind CSS" },
   { group: { fr: "Back-end", en: "Back-end" } as T, items: "Laravel, Filament, PHP, Node.js, Firebase" },
   { group: { fr: "Mobile", en: "Mobile" } as T, items: "Flutter, Dart" },
-  { group: { fr: "Données", en: "Data" } as T, items: "SQL, Python, Pandas" },
+  { group: { fr: "Données", en: "Data" } as T, items: "Python, SQL, Pandas, NumPy, Scikit-learn, Power BI, Tableau" },
+  { group: { fr: "IA", en: "AI" } as T, items: "Claude Code, Codex" },
+  { group: { fr: "Déploiement", en: "Deployment" } as T, items: "Git, GitHub, Vercel" },
 ];
 
 export const about: { text: T[]; facts: { label: T; value: T }[] } = {

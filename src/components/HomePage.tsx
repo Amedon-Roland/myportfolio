@@ -150,7 +150,7 @@ export function HomePage({ lang }: { lang: Lang }) {
         <div className="wrap grid gap-12 lg:grid-cols-[1fr_20rem]">
           <div>
             <SectionTitle id="services">{ui.services.title[lang]}</SectionTitle>
-            <ul data-reveal className="grid gap-5 sm:grid-cols-3">
+            <ul data-reveal className="grid gap-5 sm:grid-cols-2">
               {services.map((s) => (
                 <li key={s.title.fr} data-spotlight className="rounded-2xl border border-line p-5 transition-transform duration-500 hover:-translate-y-1 sm:p-6">
                   <h3 className="text-lg font-semibold tracking-tight">{s.title[lang]}</h3>
