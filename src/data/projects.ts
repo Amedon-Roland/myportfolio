@@ -29,12 +29,6 @@ import victoireMobile from "@/assets/work/terre-de-victoire-mobile.jpg";
 import sukulufeSite from "@/assets/work/sukulufe-site.jpg";
 import sukulufeSite2 from "@/assets/work/sukulufe-site-2.jpg";
 import sukulufeMobile from "@/assets/work/sukulufe-mobile.jpg";
-import famlineSite from "@/assets/work/famline-site.jpg";
-import famlineSite2 from "@/assets/work/famline-site-2.jpg";
-import famlineMobile from "@/assets/work/famline-mobile.jpg";
-import lfacSite from "@/assets/work/lfac-avc-site.jpg";
-import lfacSite2 from "@/assets/work/lfac-avc-site-2.jpg";
-import lfacMobile from "@/assets/work/lfac-avc-mobile.jpg";
 import gospelSite from "@/assets/work/togo-gospel-hub-site.jpg";
 import gospelSite2 from "@/assets/work/togo-gospel-hub-site-2.jpg";
 import gospelMobile from "@/assets/work/togo-gospel-hub-mobile.jpg";
@@ -48,6 +42,8 @@ export type Project = {
   year: string;
   /** Client work is listed first and in full; the rest as smaller cards. */
   featured: boolean;
+  /** Still being built: labelled as such, and `built` lists what is planned. */
+  wip?: boolean;
   /** What was delivered, shown as small labels on the card. */
   parts: T[];
   summary: T;
@@ -241,31 +237,32 @@ export const projects: Project[] = [
     client: { fr: "Victory Outreach, Lomé", en: "Victory Outreach, Lomé" },
     year: "2026",
     featured: false,
+    wip: true,
     parts: [site],
     summary: {
-      fr: "Le site d'une église : cultes en direct, Bible en ligne et une équipe qui publie seule.",
-      en: "A church website: live services, an online Bible, and a team that publishes on its own.",
+      fr: "Le site d'une église de Lomé, en cours de développement.",
+      en: "A website for a church in Lomé, in progress.",
     },
     need: {
-      fr: "Trouver vite l'heure du prochain culte, le direct et le chemin jusqu'à l'église, depuis un téléphone.",
-      en: "Find the next service time, the live stream and the way to the church quickly, from a phone.",
+      fr: "Permettre aux visiteurs de trouver vite l'heure des cultes, le direct et le chemin jusqu'à l'église, depuis un téléphone.",
+      en: "Let visitors quickly find service times, the live stream and the way to the church, from a phone.",
     },
     built: {
       fr: [
-        "Le compte à rebours du prochain culte, avec ajout à l'agenda du téléphone.",
-        "Le direct YouTube détecté tout seul et les rediffusions.",
-        "La Bible Louis Segond complète, avec recherche et verset du jour.",
-        "Un espace d'administration pour les articles et les demandes de prière.",
+        "Les horaires des cultes et le prochain rendez-vous.",
+        "Le direct YouTube et les rediffusions.",
+        "Une Bible en ligne.",
+        "Un espace d'administration pour que l'équipe publie seule.",
       ],
       en: [
-        "A countdown to the next service, with an add-to-calendar file.",
-        "Automatic YouTube live detection and replays.",
-        "The full Louis Segond Bible, with search and a verse of the day.",
-        "An admin area for posts and prayer requests.",
+        "Service times and the next gathering.",
+        "The YouTube live stream and replays.",
+        "An online Bible.",
+        "An admin area so the team can publish on its own.",
       ],
     },
-    stack: ["Next.js", "React", "Tailwind CSS", "Redis"],
-    links: [{ label: { fr: "victoryoutreachintl.vercel.app", en: "victoryoutreachintl.vercel.app" }, href: "https://victoryoutreachintl.vercel.app" }],
+    stack: ["Next.js", "React", "Tailwind CSS"],
+    links: [{ label: { fr: "Aperçu en cours", en: "Work-in-progress preview" }, href: "https://victoryoutreachintl.vercel.app" }],
     cover: { src: victoireSite, alt: { fr: "Page d'accueil de Terre de Victoire", en: "Terre de Victoire home page" } },
     gallery: [{ src: victoireSite2, alt: { fr: "Programme de la semaine", en: "Weekly schedule" } }],
     mobile: { src: victoireMobile, alt: { fr: "Le site sur téléphone", en: "The site on a phone" } },
@@ -276,10 +273,11 @@ export const projects: Project[] = [
     client: { fr: "Projet personnel", en: "Personal project" },
     year: "2026",
     featured: false,
+    wip: true,
     parts: [site, app],
     summary: {
-      fr: "Payer l'école de ses enfants depuis son téléphone, par Mobile Money ou carte.",
-      en: "Pay your children's school fees from your phone, by Mobile Money or card.",
+      fr: "Une application pour payer l'école de ses enfants depuis son téléphone, en cours de développement.",
+      en: "An app to pay your children's school fees from your phone, in progress.",
     },
     need: {
       fr: "Au Togo, payer l'école veut souvent dire faire la queue, transporter du liquide et garder des reçus papier.",
@@ -287,93 +285,23 @@ export const projects: Project[] = [
     },
     built: {
       fr: [
-        "Un parcours en quatre étapes : compte, code de l'enfant, solde, paiement.",
-        "Le paiement par Mixx by Yas, Flooz, carte ou espèces.",
-        "Un reçu numérique immédiat et l'historique par enfant.",
-        "L'application Flutter et le site de lancement.",
+        "Un parcours simple : créer un compte, ajouter son enfant, voir ce qui reste à payer.",
+        "Le paiement par Mobile Money.",
+        "Un reçu numérique pour chaque paiement.",
+        "Une application mobile et un site de présentation.",
       ],
       en: [
-        "A four-step flow: account, child code, balance, payment.",
-        "Payment by Mixx by Yas, Flooz, card or cash.",
-        "An instant digital receipt and per-child history.",
-        "The Flutter app and the launch website.",
+        "A simple flow: create an account, add your child, see what is left to pay.",
+        "Mobile Money payment.",
+        "A digital receipt for every payment.",
+        "A mobile app and a presentation website.",
       ],
     },
     stack: ["Next.js", "Flutter", "Dart"],
-    links: [{ label: { fr: "sukulufe.vercel.app", en: "sukulufe.vercel.app" }, href: "https://sukulufe.vercel.app" }],
+    links: [{ label: { fr: "Site de présentation", en: "Presentation website" }, href: "https://sukulufe.vercel.app" }],
     cover: { src: sukulufeSite, alt: { fr: "Page d'accueil de Sukulufe", en: "Sukulufe home page" } },
-    gallery: [{ src: sukulufeSite2, alt: { fr: "Les problèmes que Sukulufe règle", en: "The problems Sukulufe solves" } }],
+    gallery: [{ src: sukulufeSite2, alt: { fr: "Section du site de Sukulufe", en: "Sukulufe website section" } }],
     mobile: { src: sukulufeMobile, alt: { fr: "Sukulufe sur téléphone", en: "Sukulufe on a phone" } },
-  },
-  {
-    slug: "famline",
-    name: "Famline",
-    client: { fr: "Projet personnel", en: "Personal project" },
-    year: "2025",
-    featured: false,
-    parts: [site, app],
-    summary: {
-      fr: "Construire l'arbre de sa famille, même avec des dates approximatives et une famille élargie.",
-      en: "Build your family tree, even with approximate dates and an extended family.",
-    },
-    need: {
-      fr: "Les outils de généalogie existants supposent des dates exactes et des familles nucléaires.",
-      en: "Existing genealogy tools assume exact dates and nuclear families.",
-    },
-    built: {
-      fr: [
-        "Un arbre interactif : ancêtres, parents, enfants et unions.",
-        "Des profils avec photos et dates approximatives.",
-        "Des réglages de visibilité pour les données sensibles.",
-        "Une version web et une application Flutter synchronisées.",
-      ],
-      en: [
-        "An interactive tree: ancestors, parents, children and unions.",
-        "Profiles with photos and approximate dates.",
-        "Visibility settings for sensitive data.",
-        "A web version and a synced Flutter app.",
-      ],
-    },
-    stack: ["Next.js", "TypeScript", "Flutter"],
-    links: [{ label: { fr: "famline-sepia.vercel.app", en: "famline-sepia.vercel.app" }, href: "https://famline-sepia.vercel.app" }],
-    cover: { src: famlineSite, alt: { fr: "Page d'accueil de Famline", en: "Famline home page" } },
-    gallery: [{ src: famlineSite2, alt: { fr: "Section du site Famline", en: "Famline website section" } }],
-    mobile: { src: famlineMobile, alt: { fr: "Famline sur téléphone", en: "Famline on a phone" } },
-  },
-  {
-    slug: "lfac-avc",
-    name: "LFAC-AVC",
-    client: { fr: "Ligue Franco-Africaine contre les AVC", en: "Franco-African League against Stroke" },
-    year: "2025",
-    featured: false,
-    parts: [site],
-    summary: {
-      fr: "Le site d'une association de santé : campagnes de prévention, formations et espace membre.",
-      en: "A health non-profit's website: prevention campaigns, training and a members' area.",
-    },
-    need: {
-      fr: "Un seul endroit pour publier les campagnes, présenter l'association et accueillir de nouveaux membres.",
-      en: "One place to publish campaigns, present the association and welcome new members.",
-    },
-    built: {
-      fr: [
-        "Les actualités : campagnes, formations, télémédecine.",
-        "La présentation des valeurs, des pays membres et des services.",
-        "L'adhésion et l'espace membre.",
-        "Un thème clair et un thème sombre.",
-      ],
-      en: [
-        "News: campaigns, training, telemedicine.",
-        "Values, member countries and services.",
-        "Membership sign-up and a members' area.",
-        "Light and dark themes.",
-      ],
-    },
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    links: [{ label: { fr: "lfac-avc.vercel.app", en: "lfac-avc.vercel.app" }, href: "https://lfac-avc.vercel.app" }],
-    cover: { src: lfacSite, alt: { fr: "Page d'accueil de LFAC-AVC", en: "LFAC-AVC home page" } },
-    gallery: [{ src: lfacSite2, alt: { fr: "Actualités de l'association", en: "Association news" } }],
-    mobile: { src: lfacMobile, alt: { fr: "LFAC-AVC sur téléphone", en: "LFAC-AVC on a phone" } },
   },
   {
     slug: "togo-gospel-hub",
@@ -381,31 +309,32 @@ export const projects: Project[] = [
     client: { fr: "Projet personnel", en: "Personal project" },
     year: "2026",
     featured: false,
+    wip: true,
     parts: [site],
     summary: {
-      fr: "L'annuaire des artistes, techniciens et studios du gospel togolais.",
-      en: "A directory of Togo's gospel artists, technicians and studios.",
+      fr: "Un annuaire des professionnels du gospel togolais, en cours de développement.",
+      en: "A directory of Togo's gospel professionals, in progress.",
     },
     need: {
-      fr: "Les professionnels du gospel se trouvaient surtout par le bouche-à-oreille.",
-      en: "Gospel professionals mostly found each other by word of mouth.",
+      fr: "Les artistes, techniciens et studios du gospel se trouvent surtout par le bouche-à-oreille.",
+      en: "Gospel artists, technicians and studios mostly find each other by word of mouth.",
     },
     built: {
       fr: [
         "Un annuaire par catégorie : artistes, producteurs, vidéastes, photographes.",
-        "Des profils vérifiés avec contact direct.",
-        "L'agenda des événements.",
-        "Une recherche globale au clavier.",
+        "Un profil par professionnel, avec ses contacts.",
+        "Un agenda des événements.",
+        "Une recherche sur tout le site.",
       ],
       en: [
         "A directory by category: artists, producers, videographers, photographers.",
-        "Verified profiles with direct contact.",
+        "A profile for each professional, with contact details.",
         "An events calendar.",
-        "Site-wide keyboard search.",
+        "Site-wide search.",
       ],
     },
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    links: [{ label: { fr: "togogospelbizz.vercel.app", en: "togogospelbizz.vercel.app" }, href: "https://togogospelbizz.vercel.app" }],
+    links: [{ label: { fr: "Aperçu en cours", en: "Work-in-progress preview" }, href: "https://togogospelbizz.vercel.app" }],
     cover: { src: gospelSite, alt: { fr: "Page d'accueil de Togo Gospel Hub", en: "Togo Gospel Hub home page" } },
     gallery: [{ src: gospelSite2, alt: { fr: "Profils de l'annuaire", en: "Directory profiles" } }],
     mobile: { src: gospelMobile, alt: { fr: "Togo Gospel Hub sur téléphone", en: "Togo Gospel Hub on a phone" } },

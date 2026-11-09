@@ -18,7 +18,7 @@ export function Header({ lang, altHref }: Props) {
   ];
 
   return (
-    <header className="px-gutter sticky top-0 z-40 border-b border-line bg-ground/95">
+    <header className="px-gutter sticky top-0 z-50 border-b border-line bg-ground">
       <div className="wrap flex h-16 items-center justify-between gap-4">
         <Link href={home} className="flex items-center gap-2.5 font-semibold tracking-tight" aria-label={ui.nav.home[lang]}>
           <span aria-hidden className="grid h-8 w-8 place-items-center rounded-full bg-accent text-[12px] font-bold text-on-accent">

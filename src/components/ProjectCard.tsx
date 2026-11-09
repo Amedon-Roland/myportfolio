@@ -9,17 +9,21 @@ type Props = { project: Project; lang: Lang; large?: boolean; priority?: boolean
 /** The whole card is one link; the image is decorative because the text names the project. */
 export function ProjectCard({ project: p, lang, large, priority }: Props) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-raised transition-colors hover:border-muted/50">
+    <article data-spotlight className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-raised transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-muted/50">
       <Shot
         src={p.cover.src}
         alt=""
         ratio="16 / 10"
+        parallax={6}
         priority={priority}
         sizes={large ? "(min-width: 1152px) 560px, (min-width: 768px) 50vw, 100vw" : "(min-width: 1152px) 370px, (min-width: 768px) 33vw, 100vw"}
         className="border-b border-line"
       />
       <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex flex-wrap gap-1.5">
+          {p.wip && (
+            <span className="rounded-full bg-accent/15 px-2.5 py-1 text-[12px] font-semibold text-accent">{ui.project.wip[lang]}</span>
+          )}
           {p.parts.map((part) => (
             <span key={part.fr} className="rounded-full bg-ground px-2.5 py-1 text-[12px] font-medium text-muted">
               {part[lang]}

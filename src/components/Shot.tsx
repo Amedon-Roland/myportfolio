@@ -8,29 +8,42 @@ type Props = {
   className?: string;
   /** Crop to a fixed ratio from the top; otherwise the image keeps its own ratio. */
   ratio?: string;
+  /** Drift, in percent, against the scroll (animated only on capable connections). */
+  parallax?: number;
 };
 
 /**
  * A screenshot that never jumps: its box is reserved from the image's own
  * dimensions, a shimmering skeleton fills it, then a blurred preview, then
- * the real image in the smallest format the browser accepts.
+ * the real image in the smallest format the browser accepts. With
+ * `parallax`, the image is slightly taller than its frame so it can drift.
  */
-export function Shot({ src, alt, sizes, priority, className = "", ratio }: Props) {
+export function Shot({ src, alt, sizes, priority, className = "", ratio, parallax }: Props) {
+  const image = (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes={sizes}
+      placeholder="blur"
+      priority={priority}
+      quality={70}
+      className="object-cover object-top"
+    />
+  );
+
   return (
     <div
       className={`skeleton relative overflow-hidden ${className}`}
       style={{ aspectRatio: ratio ?? `${src.width} / ${src.height}` }}
     >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes={sizes}
-        placeholder="blur"
-        priority={priority}
-        quality={70}
-        className="object-cover object-top"
-      />
+      {parallax ? (
+        <div data-parallax={parallax} className="absolute inset-x-0" style={{ top: `-${parallax}%`, bottom: `-${parallax}%` }}>
+          {image}
+        </div>
+      ) : (
+        image
+      )}
     </div>
   );
 }

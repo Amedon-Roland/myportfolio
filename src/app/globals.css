@@ -122,3 +122,49 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Until the animation code takes over, keep the hero pieces it will reveal hidden. */
+.motion:not(.motion-ready) [data-split],
+.motion:not(.motion-ready) [data-intro],
+.motion:not(.motion-ready) [data-portrait] {
+  visibility: hidden;
+}
+
+/* Border light that follows the pointer (set by Motion.tsx). */
+[data-spotlight] {
+  position: relative;
+  isolation: isolate;
+}
+[data-spotlight]::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), var(--color-accent), transparent 45%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.motion [data-spotlight]:hover::before {
+  opacity: 1;
+}
+
+/* Tool strip; it stops for lite visitors and reduced motion. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+.lite .marquee {
+  animation: none;
+}

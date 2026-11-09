@@ -19,12 +19,17 @@ export function ProjectPage({ project: p, lang }: { project: Project; lang: Lang
           {ui.project.back[lang]}
         </Link>
 
-        <header className="mt-6 max-w-3xl">
+        <header data-intro className="mt-6 max-w-3xl">
           <h1 className="text-[clamp(2.2rem,6vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.03em]">{p.name}</h1>
           <p className="mt-4 text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-muted">{p.summary[lang]}</p>
+          {p.wip && (
+            <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent/15 px-3 py-1.5 text-[14px] font-medium text-accent">
+              {ui.project.wipNote[lang]}
+            </p>
+          )}
         </header>
 
-        <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        <dl data-intro className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           <div className="bg-ground px-5 py-4">
             <dt className="text-[14px] text-muted">{ui.project.client[lang]}</dt>
             <dd className="mt-1 font-medium">{p.client[lang]}</dd>
@@ -63,11 +68,11 @@ export function ProjectPage({ project: p, lang }: { project: Project; lang: Lang
           </div>
         </dl>
 
-        <figure className="mt-8 overflow-hidden rounded-2xl border border-line">
-          <Shot src={p.cover.src} alt={p.cover.alt[lang]} priority sizes="(min-width: 1152px) 1152px, 100vw" />
+        <figure data-intro className="mt-8 overflow-hidden rounded-2xl border border-line">
+          <Shot src={p.cover.src} alt={p.cover.alt[lang]} priority parallax={5} sizes="(min-width: 1152px) 1152px, 100vw" />
         </figure>
 
-        <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-14">
+        <div data-reveal className="mt-14 grid gap-10 md:grid-cols-2 md:gap-14">
           <section aria-labelledby="need">
             <h2 id="need" className="text-xl font-semibold tracking-tight">
               {ui.project.need[lang]}
@@ -76,7 +81,7 @@ export function ProjectPage({ project: p, lang }: { project: Project; lang: Lang
           </section>
           <section aria-labelledby="built">
             <h2 id="built" className="text-xl font-semibold tracking-tight">
-              {ui.project.built[lang]}
+              {p.wip ? ui.project.planned[lang] : ui.project.built[lang]}
             </h2>
             <ul className="mt-3 space-y-2.5 text-[17px] leading-relaxed text-muted">
               {p.built[lang].map((b) => (
@@ -95,12 +100,12 @@ export function ProjectPage({ project: p, lang }: { project: Project; lang: Lang
               {ui.project.gallery[lang]}
             </h2>
             <div className={`mt-6 grid items-start gap-5 ${p.mobile ? "md:grid-cols-[1fr_16rem]" : ""}`}>
-              <ul className="grid gap-5">
+              <ul data-reveal className="grid gap-5">
                 {p.gallery.map((g) => (
                   <li key={g.alt.fr}>
                     <figure className="overflow-hidden rounded-2xl border border-line">
                       {/* The caption below names the image, so the image itself stays silent. */}
-                      <Shot src={g.src} alt="" sizes="(min-width: 1152px) 860px, 100vw" />
+                      <Shot src={g.src} alt="" parallax={4} sizes="(min-width: 1152px) 860px, 100vw" />
                       <figcaption className="border-t border-line px-4 py-3 text-[14px] text-muted">{g.alt[lang]}</figcaption>
                     </figure>
                   </li>
