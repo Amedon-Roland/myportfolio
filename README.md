@@ -1,30 +1,31 @@
 # Roland Amedon, portfolio
 
-Portfolio de Roland Amedon, développeur full-stack à Lomé.
-
-Style « dark premium » : fond nuit, panneaux en verre dépoli, lueurs bleu-violet et un thème clair
-en option. Le hero présente un portrait détouré, les projets sont en grille bento avec une fiche
-détaillée, et la section « Atelier » tisse un motif kente à partir d'un prénom.
+Site personnel de Roland Amedon, développeur full-stack à Lomé. En français par défaut (`/`), en anglais sous `/en`.
 
 ## Stack
 
-- [Next.js 16](https://nextjs.org) (App Router, rendu statique) et React 19
-- [Tailwind CSS 4](https://tailwindcss.com)
-- [GSAP](https://gsap.com), `@gsap/react`, SplitText et ScrollTrigger pour les animations
-- [Lenis](https://lenis.darkroom.engineering) pour le défilement fluide
-- [Lucide](https://lucide.dev) pour les icônes, police Geist
+- [Next.js 16](https://nextjs.org) (App Router, pages statiques) et React 19
+- [Tailwind CSS 4](https://tailwindcss.com), police Geist, icônes [Lucide](https://lucide.dev)
+
+## Choix de performance et d'accessibilité
+
+- Presque tout est rendu côté serveur : le seul JavaScript côté client sert au thème et au bouton « Copier l'adresse ».
+- Captures servies en AVIF ou WebP à la bonne taille, avec un skeleton puis un aperçu flou pendant le chargement, et aucun décalage de mise en page.
+- Sur une connexion lente ou en mode économie de données, la classe `lite` coupe les animations.
+- Lien d'évitement, repères de page, `lang` correct sur chaque page, liens `hreflang`, contrastes AA dans les deux thèmes, mouvements réduits respectés.
 
 ## Développer
 
 ```bash
 npm install
 npm run dev     # http://localhost:3000
-npm run build   # build de production
+npm run build
 npm run lint
 ```
 
 ## Modifier le contenu
 
-Tout le texte vit dans `src/data/site.ts` : coordonnées, projets, outils et méthode.
-Le portrait est dans `public/roland.webp` (et `public/roland-cut.webp`, détouré, pour le hero).
-Les captures des projets sont dans `public/work/` (`<slug>-d.jpg`, `<slug>-d2.jpg`, `<slug>-m.jpg`).
+- Textes de l'interface : `src/i18n.ts`
+- Profil, services, outils : `src/data/profile.ts`
+- Projets (textes FR/EN, liens, captures) : `src/data/projects.ts`
+- Captures : `src/assets/work/`
