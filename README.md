@@ -15,6 +15,9 @@ Site personnel de Roland Amedon, développeur full-stack à Lomé. En français 
 - Captures servies en AVIF ou WebP à la bonne taille, avec un skeleton puis un aperçu flou pendant le chargement, et aucun décalage de mise en page.
 - Sur une connexion lente ou en mode économie de données, la classe `lite` coupe les animations, l'écran d'ouverture et la vidéo (seule son image fixe est chargée).
 - L'écran d'ouverture est en CSS pur, joué à chaque chargement complet de la page, et se termine seul en 2 s.
+- ROLI, la mascotte (`Roli.tsx`, `RoliGuide.tsx`) : un petit robot en SVG qui commente chaque section, se cache d'un clic et reste immobile en mode `lite`.
+- Bouton de retour en haut avec anneau de progression de lecture.
+- Textures (grain, points, grille) en images statiques, et calques décoratifs en parallax (`data-drift`, `data-drift-x`).
 - Le changement de thème s'ouvre en cercle depuis le bouton (View Transitions) ; ailleurs il est instantané.
 - Lien d'évitement, repères de page, `lang` correct sur chaque page, liens `hreflang`, contrastes AA dans les deux thèmes, mouvements réduits respectés.
 

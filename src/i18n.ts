@@ -97,6 +97,47 @@ export const ui = {
     private: { fr: "Logiciel interne, non public", en: "Internal software, not public" },
     next: { fr: "Projet suivant", en: "Next project" },
   },
+  roli: {
+    name: { fr: "Roli", en: "Roli" },
+    hide: { fr: "Cacher Roli", en: "Hide Roli" },
+    show: { fr: "Faire revenir Roli", en: "Bring Roli back" },
+    talk: { fr: "Parler à Roli", en: "Talk to Roli" },
+    top: { fr: "Remonter en haut de la page", en: "Back to the top of the page" },
+    lines: {
+      intro: {
+        fr: ["Salut, moi c'est Roli. Je fais la visite ?", "Je suis l'assistant de Roland. Enfin, son robot."],
+        en: ["Hi, I'm Roli. Shall I show you around?", "I'm Roland's assistant. Well, his robot."],
+      },
+      reel: {
+        fr: ["Ça, c'est le montage. Fait en code, oui oui.", "Cinq projets en dix-huit secondes."],
+        en: ["That's the reel. Made in code, really.", "Five projects in eighteen seconds."],
+      },
+      projets: {
+        fr: ["Les vrais projets, pour de vrais clients.", "Clique sur une carte, tout est détaillé."],
+        en: ["Real projects for real clients.", "Click a card, it's all explained."],
+      },
+      services: {
+        fr: ["Sites, logiciels, données, mobile. Il fait tout ça.", "Moi je fais surtout les blagues."],
+        en: ["Sites, software, data, mobile. He does it all.", "I mostly handle the jokes."],
+      },
+      "a-propos": {
+        fr: ["Lomé, le café, le code. Dans cet ordre.", "Du besoin à la mise en ligne, c'est lui."],
+        en: ["Lomé, coffee, code. In that order.", "From the brief to launch, that's him."],
+      },
+      contact: {
+        fr: ["Un projet ? Écris-lui, il répond vite.", "Promis, je ne lis pas tes mails."],
+        en: ["Got a project? Write to him, he answers fast.", "I promise I don't read your emails."],
+      },
+      lost: {
+        fr: ["Moi aussi, je suis perdu. On rentre ?", "Cette page a dû partir en vacances."],
+        en: ["I'm lost too. Shall we head home?", "This page must be on holiday."],
+      },
+      project: {
+        fr: ["Fais défiler, il y a les captures plus bas.", "Celui-là, il en est fier."],
+        en: ["Scroll down, the screenshots are below.", "He's proud of this one."],
+      },
+    },
+  },
   footer: {
     made: { fr: "Conçu et codé à Lomé.", en: "Designed and built in Lomé." },
     top: { fr: "Haut de page", en: "Back to top" },

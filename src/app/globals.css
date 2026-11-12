@@ -32,6 +32,8 @@
   --leaf: #4ade80;
   --skeleton: #1a1d26;
   --skeleton-shine: #232734;
+  --grain-opacity: 0.05;
+  --glow: rgba(157, 176, 255, 0.16);
 }
 
 :root[data-theme="light"] {
@@ -46,6 +48,8 @@
   --leaf: #15803d;
   --skeleton: #eceef2;
   --skeleton-shine: #f6f7f9;
+  --grain-opacity: 0.07;
+  --glow: rgba(57, 73, 199, 0.1);
 }
 
 html {
@@ -64,6 +68,7 @@ html {
 body {
   font-family: var(--font-sans);
   background: var(--color-ground);
+  position: relative;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -360,5 +365,159 @@ body {
 @keyframes intro-lift {
   to {
     transform: translateY(-100%);
+  }
+}
+
+/*
+  Background textures. All static images painted once: a film grain over the
+  whole page, a dot field and a fine grid for some sections, soft glows.
+  No blend modes, no fixed layers, so scrolling stays cheap.
+*/
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* In the base layer so utilities such as fixed or sticky still win. */
+@layer base {
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+.texture-dots {
+  background-image: radial-gradient(var(--color-line) 1.2px, transparent 1.3px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+.texture-grid {
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 80%);
+  opacity: 0.6;
+}
+.glow {
+  border-radius: 9999px;
+  background: radial-gradient(circle, var(--glow), transparent 65%);
+}
+/* Giant outlined word drifting behind a section title. */
+.bg-word {
+  font-size: clamp(5rem, 17vw, 15rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-line);
+  user-select: none;
+}
+
+/* ROLI (Roli.tsx). Still for lite visitors, alive otherwise. */
+.roli {
+  overflow: visible;
+}
+.roli-shadow {
+  fill: #000;
+  opacity: 0.25;
+}
+.roli-eyes {
+  transform: translate(var(--look-x, 0), var(--look-y, 0));
+  transition: transform 0.25s ease-out;
+}
+.roli-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.roli-arm-right,
+.roli-antenna {
+  transform-box: fill-box;
+}
+.roli-arm-right {
+  transform-origin: 0% 100%;
+}
+.roli-antenna {
+  transform-origin: 50% 100%;
+}
+.motion .roli-body {
+  animation: roli-float 3.2s ease-in-out infinite;
+}
+.motion .roli-shadow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: roli-shadow 3.2s ease-in-out infinite;
+}
+.motion .roli-eye {
+  animation: roli-blink 4.6s infinite;
+}
+.motion .roli-antenna {
+  animation: roli-antenna 2.4s ease-in-out infinite;
+}
+.motion .roli-wave .roli-arm-right {
+  animation: roli-wave 0.9s ease-in-out infinite;
+}
+.roli-think .roli-mouth {
+  d: path("M54 74 L 66 72");
+}
+@keyframes roli-float {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes roli-shadow {
+  50% {
+    transform: scaleX(0.82);
+    opacity: 0.15;
+  }
+}
+@keyframes roli-blink {
+  0%, 92%, 100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes roli-antenna {
+  50% {
+    transform: rotate(8deg);
+  }
+}
+@keyframes roli-wave {
+  50% {
+    transform: rotate(-22deg);
+  }
+}
+
+/* Speech bubble and the hidden Roli peeking from the bottom edge. */
+.roli-bubble {
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  transform-origin: 0% 100%;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.roli-bubble.is-open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.roli-peek svg {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.roli-peek:hover svg,
+.roli-peek:focus-visible svg {
+  transform: translate(-50%, -6px);
+}
+@media print {
+  .roli-guide,
+  .roli-peek,
+  .back-to-top {
+    display: none;
   }
 }

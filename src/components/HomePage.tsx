@@ -7,6 +7,7 @@ import { projects, tools } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { CopyEmail } from "./CopyEmail";
 import { Reel } from "./Reel";
+import { Roli } from "./Roli";
 import reelPoster from "@/assets/motion/showreel-poster.jpg";
 
 const marquee = ["Next.js", "React", "TypeScript", "Laravel", "Filament", "PHP", "Flutter", "Firebase", "Node.js", "Tailwind CSS", "SQL", "Python"];
@@ -25,11 +26,27 @@ function SectionTitle({ id, children, intro }: { id: string; children: React.Rea
   );
 }
 
+/** A giant outlined word sliding sideways behind a section title. */
+function BackWord({ children, align = "left" }: { children: string; align?: "left" | "right" }) {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-6 -z-10 overflow-hidden sm:top-2">
+      <div data-drift-x="10" className={`bg-word ${align === "right" ? "text-right" : ""}`}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export function HomePage({ lang }: { lang: Lang }) {
   return (
     <>
       {/* Intro */}
-      <section aria-labelledby="intro-title" className="px-gutter pb-16 pt-12 sm:pb-24 sm:pt-20">
+      <section aria-labelledby="intro-title" className="px-gutter relative isolate pb-16 pt-12 sm:pb-24 sm:pt-20">
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div data-drift="50" className="texture-grid absolute -inset-y-24 inset-x-0" />
+          <div data-drift="-90" className="glow absolute -right-40 top-0 h-[34rem] w-[34rem]" />
+          <div data-drift="70" className="glow absolute -left-48 bottom-0 h-[26rem] w-[26rem] opacity-70" />
+        </div>
         <div className="wrap grid items-center gap-10 md:grid-cols-[1fr_auto] md:gap-14">
           <div className="max-w-2xl">
             <p data-intro className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-[14px] text-muted">
@@ -112,7 +129,8 @@ export function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Client work */}
-      <section aria-labelledby="projets" className="px-gutter scroll-mt-20 py-16 sm:py-20">
+      <section aria-labelledby="projets" className="px-gutter relative isolate scroll-mt-20 py-16 sm:py-20">
+        <BackWord>{lang === "fr" ? "Projets" : "Work"}</BackWord>
         <div className="wrap">
           <SectionTitle id="projets" intro={ui.work.intro[lang]}>
             {ui.work.title[lang]}
@@ -160,7 +178,11 @@ export function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Services and tools */}
-      <section aria-labelledby="services" className="px-gutter scroll-mt-20 py-16 sm:py-20">
+      <section aria-labelledby="services" className="px-gutter relative isolate scroll-mt-20 py-16 sm:py-20">
+        <BackWord align="right">Services</BackWord>
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div data-drift="40" className="texture-dots absolute -inset-y-16 inset-x-0" />
+        </div>
         <div className="wrap grid gap-12 lg:grid-cols-[1fr_20rem]">
           <div>
             <SectionTitle id="services">{ui.services.title[lang]}</SectionTitle>
@@ -188,7 +210,8 @@ export function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* About */}
-      <section aria-labelledby="a-propos" className="px-gutter scroll-mt-20 py-16 sm:py-20">
+      <section aria-labelledby="a-propos" className="px-gutter relative isolate scroll-mt-20 py-16 sm:py-20">
+        <BackWord>{lang === "fr" ? "À propos" : "About"}</BackWord>
         <div className="wrap max-w-3xl">
           <SectionTitle id="a-propos">{ui.about.title[lang]}</SectionTitle>
           <div data-reveal className="space-y-4 text-[17px] leading-relaxed text-muted">
@@ -208,8 +231,13 @@ export function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Contact */}
-      <section aria-labelledby="contact" className="px-gutter scroll-mt-20 py-16 sm:py-24">
-        <div data-reveal className="wrap rounded-3xl border border-line bg-raised px-6 py-12 text-center sm:px-12 sm:py-16">
+      <section aria-labelledby="contact" className="px-gutter relative isolate scroll-mt-20 py-16 sm:py-24">
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div data-drift="-60" className="glow absolute left-1/2 top-1/2 h-[40rem] w-[40rem] -translate-x-1/2 -translate-y-1/2" />
+        </div>
+        <div data-reveal className="wrap relative isolate overflow-hidden rounded-3xl border border-line bg-raised px-6 py-12 text-center sm:px-12 sm:py-16">
+          <div aria-hidden className="texture-dots pointer-events-none absolute inset-0 -z-10" />
+          <Roli mood="wave" className="mx-auto mb-4 h-24 w-24 sm:h-28 sm:w-28" />
           <h2 id="contact" className="text-[clamp(1.9rem,5vw,3rem)] font-semibold leading-tight tracking-tight text-balance">
             {ui.contact.title[lang]}
           </h2>

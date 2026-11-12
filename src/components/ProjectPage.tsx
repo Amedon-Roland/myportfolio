@@ -9,7 +9,11 @@ export function ProjectPage({ project: p, lang }: { project: Project; lang: Lang
   const next = projects[(index + 1) % projects.length];
 
   return (
-    <article className="px-gutter pb-20 pt-8 sm:pt-12">
+    <article className="px-gutter relative isolate pb-20 pt-8 sm:pt-12">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[46rem] overflow-hidden">
+        <div data-drift="60" className="texture-grid absolute -inset-y-20 inset-x-0" />
+        <div data-drift="-80" className="glow absolute -right-32 -top-24 h-[30rem] w-[30rem]" />
+      </div>
       <div className="wrap">
         <Link
           href={`${homePath(lang)}#projets`}

@@ -30,6 +30,8 @@ declare global {
  *   data-portrait     hero portrait, unveiled from the bottom
  *   data-reveal       container whose children rise in when scrolled into view
  *   data-parallax=N   element drifting N% against the scroll inside its frame
+ *   data-drift=N      decorative layer moving N px up/down while its section crosses the screen
+ *   data-drift-x=N    decorative layer sliding N% sideways (giant background words)
  *   data-spotlight    card whose border lights up under the pointer
  */
 export function Motion() {
@@ -123,6 +125,26 @@ export function Motion() {
               ease: "none",
               scrollTrigger: { trigger: layer.parentElement, start: "top bottom", end: "bottom top", scrub: true },
             },
+          );
+        });
+
+        // Decorative layers: depth by speed difference, tied to their section.
+        fresh("[data-drift]").forEach((layer) => {
+          const amount = Number(layer.dataset.drift) || 60;
+          const section = layer.closest("section") ?? layer.parentElement;
+          gsap.fromTo(
+            layer,
+            { y: -amount },
+            { y: amount, ease: "none", scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: true } },
+          );
+        });
+        fresh("[data-drift-x]").forEach((layer) => {
+          const amount = Number(layer.dataset.driftX) || 12;
+          const section = layer.closest("section") ?? layer.parentElement;
+          gsap.fromTo(
+            layer,
+            { xPercent: amount },
+            { xPercent: -amount, ease: "none", scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: true } },
           );
         });
 
