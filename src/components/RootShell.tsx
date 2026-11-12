@@ -3,6 +3,8 @@ import { Geist } from "next/font/google";
 import { ui, type Lang } from "@/i18n";
 import { Motion } from "./Motion";
 import { IntroScreen } from "./IntroScreen";
+import { RoliGuide } from "./RoliGuide";
+import { BackToTop } from "./BackToTop";
 import "@/app/globals.css";
 
 const geist = Geist({
@@ -42,6 +44,9 @@ export function RootShell({ lang, children }: { lang: Lang; children: ReactNode 
         </a>
         <IntroScreen lang={lang} />
         {children}
+        {/* Outside the pages, so they stay on screen while pages change. */}
+        <RoliGuide lang={lang} />
+        <BackToTop lang={lang} />
         <Motion />
       </body>
     </html>

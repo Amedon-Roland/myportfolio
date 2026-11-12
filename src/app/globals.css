@@ -179,8 +179,8 @@ body {
   button while the old one stays still underneath. Only runs in the motion
   experience; everyone else gets an instant switch.
 */
-::view-transition-old(root),
-::view-transition-new(root) {
+.theme-switching::view-transition-old(root),
+.theme-switching::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
@@ -634,6 +634,96 @@ body::before {
   100% { transform: none; }
 }
 
+/* Roli being handled: held, thrown, running home, playing catch (RoliGuide.tsx). */
+.roli-mover {
+  will-change: transform;
+}
+.roli-face {
+  transform: scaleX(var(--face, 1));
+  transition: transform 0.2s;
+}
+.roli-foot-l,
+.roli-foot-r,
+.roli-arm-left {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+.is-held .roli-lean,
+.is-flying .roli-lean {
+  transition: none;
+}
+.is-held .roli-lean {
+  transition: transform 0.12s ease-out;
+}
+.motion .is-held .roli-body {
+  animation: roli-dangle 0.5s ease-in-out infinite;
+}
+.motion .is-held .roli-foot-l {
+  animation: roli-kick 0.28s ease-in-out infinite;
+}
+.motion .is-held .roli-foot-r {
+  animation: roli-kick 0.28s ease-in-out -0.14s infinite;
+}
+.motion .is-held .roli-shadow,
+.motion .is-flying .roli-shadow {
+  opacity: 0;
+}
+.motion .is-running .roli-body {
+  animation: roli-run-bob 0.24s ease-in-out infinite;
+}
+.motion .is-running .roli-lean {
+  transform: rotate(calc(var(--face, 1) * 8deg));
+}
+.motion .is-running .roli-foot-l {
+  animation: roli-step 0.24s linear infinite;
+}
+.motion .is-running .roli-foot-r {
+  animation: roli-step 0.24s linear -0.12s infinite;
+}
+.motion .is-running .roli-arm-left,
+.motion .is-running .roli-arm-right {
+  animation: roli-wave 0.24s ease-in-out infinite;
+}
+.motion .is-running .roli-shadow {
+  animation: roli-shadow 0.24s ease-in-out infinite;
+}
+.is-playing .roli-lean {
+  cursor: crosshair;
+}
+.motion .is-playing .roli-foot-l,
+.motion .is-playing .roli-foot-r {
+  animation: roli-kick 0.3s ease-in-out infinite;
+}
+@keyframes roli-dangle {
+  50% {
+    transform: rotate(4deg) translateY(2px);
+  }
+}
+@keyframes roli-kick {
+  50% {
+    transform: translateY(5px) rotate(18deg);
+  }
+}
+@keyframes roli-run-bob {
+  50% {
+    transform: translateY(-4px);
+  }
+}
+@keyframes roli-step {
+  0% {
+    transform: translate(-4px, 0);
+  }
+  25% {
+    transform: translate(0, -5px);
+  }
+  50% {
+    transform: translate(4px, 0);
+  }
+  100% {
+    transform: translate(-4px, 0);
+  }
+}
+
 /* Speech bubble and the hidden Roli peeking from the bottom edge. */
 .roli-bubble {
   opacity: 0;
@@ -660,4 +750,117 @@ body::before {
   .back-to-top {
     display: none;
   }
+}
+
+/*
+  Page transitions (Frame.tsx, React <ViewTransition>). The old page leaves
+  fast, the new one arrives a little slower; links tagged nav-forward /
+  nav-back slide in their direction; a project's cover grows from its card.
+  Lite visitors get none of it.
+*/
+:root {
+  --vt-exit: 220ms;
+  --vt-enter: 420ms;
+}
+::view-transition-old(.page-out) {
+  animation: vt-fade var(--vt-exit) ease-in both reverse, vt-rise var(--vt-exit) ease-in both reverse;
+}
+::view-transition-new(.page-in) {
+  animation:
+    vt-fade var(--vt-enter) cubic-bezier(0.22, 1, 0.36, 1) 120ms both,
+    vt-rise var(--vt-enter) cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+::view-transition-old(.nav-forward) {
+  animation: vt-fade var(--vt-exit) ease-in both reverse, vt-slide-out-left var(--vt-exit) ease-in both;
+}
+::view-transition-new(.nav-forward) {
+  animation:
+    vt-fade var(--vt-enter) cubic-bezier(0.22, 1, 0.36, 1) 100ms both,
+    vt-slide-in-right var(--vt-enter) cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+::view-transition-old(.nav-back) {
+  animation: vt-fade var(--vt-exit) ease-in both reverse, vt-slide-out-right var(--vt-exit) ease-in both;
+}
+::view-transition-new(.nav-back) {
+  animation:
+    vt-fade var(--vt-enter) cubic-bezier(0.22, 1, 0.36, 1) 100ms both,
+    vt-slide-in-left var(--vt-enter) cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+::view-transition-group(.morph) {
+  animation-duration: 560ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-morph-blur;
+}
+::view-transition-group(site-header),
+::view-transition-group(roli) {
+  animation: none;
+  z-index: 10;
+}
+/* These persist: show the live one only, no crossfade or double image. */
+::view-transition-old(site-header),
+::view-transition-old(roli) {
+  animation: none;
+}
+::view-transition-new(site-header),
+::view-transition-new(roli) {
+  display: none;
+}
+/* No text selection while Roli is handled or played with. */
+.roli-busy,
+.roli-busy * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+}
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+@keyframes vt-rise {
+  from {
+    transform: translateY(24px);
+  }
+}
+@keyframes vt-slide-out-left {
+  to {
+    transform: translateX(-60px);
+  }
+}
+@keyframes vt-slide-in-right {
+  from {
+    transform: translateX(80px);
+  }
+}
+@keyframes vt-slide-out-right {
+  to {
+    transform: translateX(60px);
+  }
+}
+@keyframes vt-slide-in-left {
+  from {
+    transform: translateX(-80px);
+  }
+}
+@keyframes vt-morph-blur {
+  40% {
+    filter: blur(3px);
+  }
+}
+
+/* The language switch is a full page load: crossfade it in the browsers that can. */
+@view-transition {
+  navigation: auto;
+}
+
+.lite::view-transition-group(*),
+.lite::view-transition-old(*),
+.lite::view-transition-new(*) {
+  animation: none !important;
 }

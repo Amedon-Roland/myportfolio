@@ -20,7 +20,7 @@ export function Header({ lang, altHref }: Props) {
   return (
     <header className="px-gutter sticky top-0 z-50 border-b border-line bg-ground">
       <div className="wrap flex h-16 items-center justify-between gap-4">
-        <Link href={home} className="flex items-center gap-2.5 font-semibold tracking-tight">
+        <Link href={home} transitionTypes={["nav-back"]} className="flex items-center gap-2.5 font-semibold tracking-tight">
           <span aria-hidden className="grid h-8 w-8 place-items-center rounded-full bg-accent text-[12px] font-bold text-on-accent">
             RA
           </span>
@@ -33,9 +33,9 @@ export function Header({ lang, altHref }: Props) {
           <ul className="flex items-center gap-1 text-[15px]">
             {links.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="rounded-full px-3.5 py-2.5 text-muted transition-colors hover:text-fg">
+                <Link href={l.href} className="rounded-full px-3.5 py-2.5 text-muted transition-colors hover:text-fg">
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -52,12 +52,12 @@ export function Header({ lang, altHref }: Props) {
             {other.toUpperCase()}
           </Link>
           <ThemeToggle lang={lang} />
-          <a
+          <Link
             href={`${home}#contact`}
             className="ml-1 inline-flex h-10 items-center rounded-full bg-fg px-4 text-[14px] font-medium text-ground transition-opacity hover:opacity-85"
           >
             {ui.nav.contact[lang]}
-          </a>
+          </Link>
         </div>
       </div>
     </header>

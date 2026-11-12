@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Lock } from "lucide-react";
 import { projectPath, homePath, ui, type Lang } from "@/i18n";
@@ -17,6 +18,7 @@ export function ProjectPage({ project: p, lang }: { project: Project; lang: Lang
       <div className="wrap">
         <Link
           href={`${homePath(lang)}#projets`}
+          transitionTypes={["nav-back"]}
           className="inline-flex h-11 items-center gap-2 rounded-full pr-3 text-[15px] text-muted transition-colors hover:text-fg"
         >
           <ArrowLeft aria-hidden className="h-4 w-4" />
@@ -73,7 +75,9 @@ export function ProjectPage({ project: p, lang }: { project: Project; lang: Lang
         </dl>
 
         <figure data-intro className="mt-8 overflow-hidden rounded-2xl border border-line">
-          <Shot src={p.cover.src} alt={p.cover.alt[lang]} priority parallax={5} sizes="(min-width: 1152px) 1152px, 100vw" />
+          <ViewTransition name={`cover-${p.slug}`} share="morph" default="none">
+            <Shot src={p.cover.src} alt={p.cover.alt[lang]} priority parallax={5} sizes="(min-width: 1152px) 1152px, 100vw" />
+          </ViewTransition>
         </figure>
 
         <div data-reveal className="mt-14 grid gap-10 md:grid-cols-2 md:gap-14">
@@ -130,6 +134,7 @@ export function ProjectPage({ project: p, lang }: { project: Project; lang: Lang
         <nav aria-label={ui.project.next[lang]} className="mt-16 border-t border-line pt-8">
           <Link
             href={projectPath(lang, next.slug)}
+            transitionTypes={["nav-forward"]}
             className="group inline-flex flex-col gap-1 rounded-xl py-2 pr-2"
           >
             <span className="text-[14px] text-muted">{ui.project.next[lang]}</span>

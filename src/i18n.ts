@@ -103,10 +103,18 @@ export const ui = {
     show: { fr: "Faire revenir Roli", en: "Bring Roli back" },
     talk: { fr: "Parler à Roli", en: "Talk to Roli" },
     top: { fr: "Remonter en haut de la page", en: "Back to the top of the page" },
+    game: {
+      play: { fr: "Jouer", en: "Play" },
+      label: { fr: "Jouer à attraper Roli", en: "Play catch with Roli" },
+      start: { fr: "Attrape-moi si tu peux ! 15 secondes.", en: "Catch me if you can! 15 seconds." },
+      caught: { fr: "Attrapé", en: "Caught" },
+      end: { fr: "Fini ! Attrapé {n} fois. Record : {best}.", en: "Done! Caught {n} times. Best: {best}." },
+      record: { fr: "Nouveau record : {n} ! Bravo !", en: "New best: {n}! Well done!" },
+    },
     lines: {
       intro: {
-        fr: ["Salut, moi c'est Roli. Je fais la visite ?", "Je suis l'assistant de Roland. Enfin, son robot."],
-        en: ["Hi, I'm Roli. Shall I show you around?", "I'm Roland's assistant. Well, his robot."],
+        fr: ["Salut, moi c'est Roli ! Attrape-moi, lance-moi, ou joue avec moi.", "Je suis l'assistant de Roland. Enfin, son robot."],
+        en: ["Hi, I'm Roli! Grab me, throw me, or play with me.", "I'm Roland's assistant. Well, his robot."],
       },
       reel: {
         fr: ["Ça, c'est le montage. Fait en code, oui oui.", "Cinq projets en dix-huit secondes."],
@@ -163,6 +171,22 @@ export const ui = {
       top: {
         fr: ["Et hop, retour en haut !", "Ascenseur express !"],
         en: ["And up we go!", "Express elevator!"],
+      },
+      grab: {
+        fr: ["Hé ! Repose-moi !", "Waaah, je vole !", "Pas les antennes, pas les antennes !"],
+        en: ["Hey! Put me down!", "Wheee, I'm flying!", "Not the antenna, not the antenna!"],
+      },
+      throw: {
+        fr: ["Waaaaah !", "Je voooole !", "Pas si fort !"],
+        en: ["Waaaaah!", "I'm flyiiing!", "Not so hard!"],
+      },
+      run: {
+        fr: ["J'arrive, j'arrive !", "Je retourne à mon poste !"],
+        en: ["Coming, coming!", "Back to my post!"],
+      },
+      home: {
+        fr: ["Pfiou. De retour à ma place.", "Rien de cassé. On continue ?"],
+        en: ["Phew. Back in my spot.", "Nothing broken. Shall we go on?"],
       },
       lost: {
         fr: ["Moi aussi, je suis perdu. On rentre ?", "Cette page a dû partir en vacances."],

@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { projectPath, ui, type Lang } from "@/i18n";
@@ -17,6 +18,7 @@ type Props = {
 export function ProjectCard({ project: p, lang, large, wide, priority }: Props) {
   return (
     <article data-spotlight className="group relative flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-raised transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-muted/50">
+      <ViewTransition name={`cover-${p.slug}`} share="morph" default="none">
       <Shot
         src={p.cover.src}
         alt=""
@@ -27,6 +29,7 @@ export function ProjectCard({ project: p, lang, large, wide, priority }: Props) 
         sizes={wide ? "(min-width: 1152px) 1152px, 100vw" : large ? "(min-width: 1152px) 560px, (min-width: 768px) 50vw, 100vw" : "(min-width: 1152px) 370px, (min-width: 768px) 33vw, 100vw"}
         className="border-b border-line"
       />
+      </ViewTransition>
       <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex flex-wrap gap-1.5">
           {p.wip && (
@@ -39,7 +42,7 @@ export function ProjectCard({ project: p, lang, large, wide, priority }: Props) 
           ))}
         </div>
         <h3 className={`${large ? "text-2xl" : "text-xl"} font-semibold tracking-tight`}>
-          <Link href={projectPath(lang, p.slug)} className="after:absolute after:inset-0 focus-visible:outline-none">
+          <Link href={projectPath(lang, p.slug)} transitionTypes={["nav-forward"]} className="after:absolute after:inset-0 focus-visible:outline-none">
             {p.name}
           </Link>
         </h3>

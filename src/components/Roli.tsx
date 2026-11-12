@@ -67,8 +67,8 @@ export function Roli({ mood = "idle", className = "" }: Props) {
         <circle cx="36" cy="70" r="3.5" fill="#ff8fa3" className="roli-cheek" />
         <circle cx="84" cy="70" r="3.5" fill="#ff8fa3" className="roli-cheek" />
 
-        <rect x="38" y="100" width="14" height="12" rx="6" fill="var(--color-accent)" />
-        <rect x="68" y="100" width="14" height="12" rx="6" fill="var(--color-accent)" />
+        <rect className="roli-foot-l" x="38" y="100" width="14" height="12" rx="6" fill="var(--color-accent)" />
+        <rect className="roli-foot-r" x="68" y="100" width="14" height="12" rx="6" fill="var(--color-accent)" />
       </g>
 
       {/* Extras: sleeping Zs and a heart */}

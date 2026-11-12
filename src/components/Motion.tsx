@@ -189,9 +189,20 @@ export function Motion() {
     };
   }, []);
 
-  // After a route change, let Lenis measure the new page.
+  // After a route change, Lenis must forget the old page's position: start
+  // at the top, or at the anchor the link pointed to.
   useEffect(() => {
-    (window as Window & { __lenis?: { resize: () => void } }).__lenis?.resize();
+    const lenis = (
+      window as Window & {
+        __lenis?: { resize: () => void; scrollTo: (target: number | string, o?: object) => void };
+      }
+    ).__lenis;
+    if (!lenis) return;
+    lenis.resize();
+    const hash = decodeURIComponent(location.hash.slice(1));
+    const target = hash ? document.getElementById(hash) : null;
+    if (target) lenis.scrollTo(target as unknown as string, { immediate: true, force: true, offset: -72 });
+    else lenis.scrollTo(0, { immediate: true, force: true });
   }, [pathname]);
 
   return null;
