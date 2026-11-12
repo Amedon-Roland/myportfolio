@@ -19,10 +19,10 @@ const geist = Geist({
     page, no animation library is ever downloaded;
     `motion` (everything else): GSAP and Lenis load and animate the page.
     If they have not started within 3 s the page falls back to static.
-  - on the first page of a session in the motion experience, plays the
-    opening screen (`intro-on`, see IntroScreen).
+  - on every full page load in the motion experience, plays the opening
+    screen (`intro-on`, see IntroScreen).
 */
-const boot = `(function(){var d=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")d.dataset.theme=t}catch(e){}var lite=false;try{var c=navigator.connection;if(c&&(c.saveData||/2g|3g/.test(c.effectiveType||"")))lite=true;if(navigator.deviceMemory&&navigator.deviceMemory<2)lite=true;if(matchMedia("(prefers-reduced-motion: reduce)").matches)lite=true}catch(e){}d.classList.add(lite?"lite":"motion");if(!lite){try{if(!sessionStorage.getItem("intro")){sessionStorage.setItem("intro","1");d.classList.add("intro-on");window.__introAt=performance.now();setTimeout(function(){d.classList.remove("intro-on")},2200)}}catch(e){}}if(!lite)setTimeout(function(){if(!window.__motionReady)d.classList.remove("motion")},3000)})()`;
+const boot = `(function(){var d=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")d.dataset.theme=t}catch(e){}var lite=false;try{var c=navigator.connection;if(c&&(c.saveData||/2g|3g/.test(c.effectiveType||"")))lite=true;if(navigator.deviceMemory&&navigator.deviceMemory<2)lite=true;if(matchMedia("(prefers-reduced-motion: reduce)").matches)lite=true}catch(e){}d.classList.add(lite?"lite":"motion");if(!lite){d.classList.add("intro-on");window.__introAt=performance.now();setTimeout(function(){d.classList.remove("intro-on")},2200)}if(!lite)setTimeout(function(){if(!window.__motionReady)d.classList.remove("motion")},3000)})()`;
 
 /** The <html> shell shared by the French and English root layouts. */
 export function RootShell({ lang, children }: { lang: Lang; children: ReactNode }) {

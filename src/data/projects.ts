@@ -75,54 +75,6 @@ const app: T = { fr: "Application", en: "App" };
 
 export const projects: Project[] = [
   {
-    slug: "bkbg-hotels",
-    name: "BKBG Hotels",
-    client: { fr: "BKBG Hotels, Baguida (Lomé)", en: "BKBG Hotels, Baguida (Lomé)" },
-    year: "2026",
-    featured: true,
-    parts: [site, backOffice],
-    summary: {
-      fr: "Le site d'un hôtel en bord de mer, avec une visite 3D de chaque chambre et un espace pour l'équipe.",
-      en: "A website for a seaside hotel, with a 3D tour of every room and a back-office for the staff.",
-    },
-    need: {
-      fr: "L'hôtel voulait un site neuf qui montre vraiment ses chambres, ses restaurants et ses salles, et qui envoie les demandes de réservation directement à la réception.",
-      en: "The hotel wanted a new site that really shows its rooms, restaurants and function rooms, and sends booking requests straight to the front desk.",
-    },
-    built: {
-      fr: [
-        "Une maquette 3D de chaque chambre, générée depuis sa fiche : vue de jour ou de soir, trois points de vue, plein écran.",
-        "La réservation en 4 étapes (dates, chambre, coordonnées, options), confirmée par WhatsApp, appel ou e-mail.",
-        "Les pages gastronomie, événements avec demande de devis, l'hôtel et le contact.",
-        "L'espace équipe : réservations avec statuts et export CSV, chambres, tarifs et photos, messages et réglages.",
-      ],
-      en: [
-        "A 3D model of every room, built from its listing: day or evening light, three viewpoints, full screen.",
-        "Booking in 4 steps (dates, room, details, extras), confirmed over WhatsApp, a call or email.",
-        "Dining, events with a quote request, the hotel and contact pages.",
-        "The staff area: bookings with statuses and CSV export, rooms, rates and photos, messages and settings.",
-      ],
-    },
-    stack: ["Next.js", "React Three Fiber", "Firebase", "Tailwind CSS"],
-    links: [
-      {
-        label: { fr: "bkbghotels.vercel.app (en validation)", en: "bkbghotels.vercel.app (under review)" },
-        href: "https://bkbghotels.vercel.app",
-      },
-    ],
-    cover: { src: bkbgSite, alt: { fr: "Page d'accueil de BKBG Hotels", en: "BKBG Hotels home page" } },
-    gallery: [
-      { src: bkbgRoom, alt: { fr: "Visite 3D de la Royal Room", en: "3D tour of the Royal Room" } },
-      { src: bkbgSite2, alt: { fr: "L'hôtel présenté en quelques chiffres", en: "The hotel in a few figures" } },
-      { src: bkbgBooking, alt: { fr: "Réservation, étape 1 : les dates", en: "Booking, step 1: dates" } },
-      { src: bkbgDining, alt: { fr: "Les restaurants de l'hôtel", en: "The hotel's restaurants" } },
-      { src: bkbgAdmin, alt: { fr: "Espace équipe : tableau de bord", en: "Staff area: dashboard" } },
-      { src: bkbgAdmin2, alt: { fr: "Espace équipe : réservations", en: "Staff area: bookings" } },
-      { src: bkbgAdmin3, alt: { fr: "Espace équipe : chambres et plans", en: "Staff area: rooms and floor plans" } },
-    ],
-    mobile: { src: bkbgMobile, alt: { fr: "BKBG Hotels sur téléphone", en: "BKBG Hotels on a phone" } },
-  },
-  {
     slug: "gspe-b2d",
     name: "GSPE B2D",
     client: {
@@ -297,6 +249,54 @@ export const projects: Project[] = [
       { src: somayafApp3, alt: { fr: "Liste des cuves et de leur niveau", en: "Tanks and their levels" } },
       { src: somayafAppLogin, alt: { fr: "Écran de connexion", en: "Sign-in screen" } },
     ],
+  },
+  {
+    slug: "bkbg-hotels",
+    name: "BKBG Hotels",
+    client: { fr: "BKBG Hotels, Baguida (Lomé)", en: "BKBG Hotels, Baguida (Lomé)" },
+    year: "2026",
+    featured: false,
+    parts: [site, backOffice],
+    summary: {
+      fr: "Le site d'un hôtel en bord de mer, avec une visite 3D de chaque chambre et un espace pour l'équipe.",
+      en: "A website for a seaside hotel, with a 3D tour of every room and a back-office for the staff.",
+    },
+    need: {
+      fr: "L'hôtel voulait un site neuf qui montre vraiment ses chambres, ses restaurants et ses salles, et qui envoie les demandes de réservation directement à la réception.",
+      en: "The hotel wanted a new site that really shows its rooms, restaurants and function rooms, and sends booking requests straight to the front desk.",
+    },
+    built: {
+      fr: [
+        "Une maquette 3D de chaque chambre, générée depuis sa fiche : vue de jour ou de soir, trois points de vue, plein écran.",
+        "La réservation en 4 étapes (dates, chambre, coordonnées, options), confirmée par WhatsApp, appel ou e-mail.",
+        "Les pages gastronomie, événements avec demande de devis, l'hôtel et le contact.",
+        "L'espace équipe : réservations avec statuts et export CSV, chambres, tarifs et photos, messages et réglages.",
+      ],
+      en: [
+        "A 3D model of every room, built from its listing: day or evening light, three viewpoints, full screen.",
+        "Booking in 4 steps (dates, room, details, extras), confirmed over WhatsApp, a call or email.",
+        "Dining, events with a quote request, the hotel and contact pages.",
+        "The staff area: bookings with statuses and CSV export, rooms, rates and photos, messages and settings.",
+      ],
+    },
+    stack: ["Next.js", "React Three Fiber", "Firebase", "Tailwind CSS"],
+    links: [
+      {
+        label: { fr: "bkbghotels.vercel.app (en validation)", en: "bkbghotels.vercel.app (under review)" },
+        href: "https://bkbghotels.vercel.app",
+      },
+    ],
+    cover: { src: bkbgSite, alt: { fr: "Page d'accueil de BKBG Hotels", en: "BKBG Hotels home page" } },
+    gallery: [
+      { src: bkbgRoom, alt: { fr: "Visite 3D de la Royal Room", en: "3D tour of the Royal Room" } },
+      { src: bkbgSite2, alt: { fr: "L'hôtel présenté en quelques chiffres", en: "The hotel in a few figures" } },
+      { src: bkbgBooking, alt: { fr: "Réservation, étape 1 : les dates", en: "Booking, step 1: dates" } },
+      { src: bkbgDining, alt: { fr: "Les restaurants de l'hôtel", en: "The hotel's restaurants" } },
+      { src: bkbgAdmin, alt: { fr: "Espace équipe : tableau de bord", en: "Staff area: dashboard" } },
+      { src: bkbgAdmin2, alt: { fr: "Espace équipe : réservations", en: "Staff area: bookings" } },
+      { src: bkbgAdmin3, alt: { fr: "Espace équipe : chambres et plans", en: "Staff area: rooms and floor plans" } },
+    ],
+    mobile: { src: bkbgMobile, alt: { fr: "BKBG Hotels sur téléphone", en: "BKBG Hotels on a phone" } },
   },
   {
     slug: "terre-de-victoire",

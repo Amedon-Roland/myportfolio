@@ -124,9 +124,9 @@ body {
 }
 
 /* Until the animation code takes over, keep the hero pieces it will reveal hidden. */
-.motion:not(.motion-ready) [data-split],
-.motion:not(.motion-ready) [data-intro],
-.motion:not(.motion-ready) [data-portrait] {
+.motion [data-split]:not([data-m]),
+.motion [data-intro]:not([data-m]),
+.motion [data-portrait]:not([data-m]) {
   visibility: hidden;
 }
 
@@ -211,8 +211,8 @@ body {
 }
 
 /*
-  Opening screen (IntroScreen.tsx). About 2 s, once per session, motion
-  experience only. Timeline:
+  Opening screen (IntroScreen.tsx). About 2 s, on every full page load,
+  motion experience only. Timeline:
     0.00–1.00  ring draws, counter runs 0 → 100, bar fills
     0.15–0.85  name rises letter by letter
     1.10–1.80  ground panel lifts away, the accent panel follows a beat later

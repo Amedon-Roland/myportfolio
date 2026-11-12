@@ -119,8 +119,8 @@ export function HomePage({ lang }: { lang: Lang }) {
           </SectionTitle>
           <ul data-reveal className="grid gap-5 md:grid-cols-2">
             {featured.map((p, i) => (
-              <li key={p.slug} className={`flex ${i === 0 ? "md:col-span-2" : ""}`}>
-                <ProjectCard project={p} lang={lang} large wide={i === 0} priority={i < 1} />
+              <li key={p.slug} className="flex">
+                <ProjectCard project={p} lang={lang} large priority={i < 2} />
               </li>
             ))}
           </ul>

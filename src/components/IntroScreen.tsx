@@ -2,7 +2,7 @@ import { profile } from "@/data/profile";
 import type { Lang } from "@/i18n";
 
 /**
- * Opening screen, played once per browser session and only in the motion
+ * Opening screen, played on every full page load, only in the motion
  * experience (the boot script in RootShell adds `intro-on` to <html>).
  * It is pure CSS: it runs before any JavaScript loads and always ends on its
  * own, so it can never block the page. Decorative, hence hidden from

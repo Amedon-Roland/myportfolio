@@ -19,6 +19,11 @@ declare global {
  * then are GSAP and Lenis downloaded; everyone else gets the static page,
  * which is complete on its own.
  *
+ * GSAP and Lenis are set up once for the whole visit. Pages arrive in pieces
+ * (client navigation, streamed content, the language switch), so instead of
+ * animating "the page" once, a MutationObserver picks up every hooked element
+ * as soon as it is in the DOM and animates it exactly once (`data-m`).
+ *
  * Markup hooks:
  *   data-split        headline revealed word by word
  *   data-intro        hero elements that rise in after the headline
@@ -28,15 +33,14 @@ declare global {
  *   data-spotlight    card whose border lights up under the pointer
  */
 export function Motion() {
-  // Re-run on every route change: each page brings its own elements to animate.
   const pathname = usePathname();
 
   useEffect(() => {
     const root = document.documentElement;
     if (!root.classList.contains("motion")) return;
 
-    let cleanup = () => {};
     let cancelled = false;
+    let cleanup = () => {};
 
     (async () => {
       const [{ gsap }, { ScrollTrigger }, { SplitText }, { default: Lenis }] = await Promise.all([
@@ -55,27 +59,49 @@ export function Motion() {
       gsap.ticker.add(raf);
       gsap.ticker.lagSmoothing(0);
 
-      const ctx = gsap.context(() => {
-        // Hero: words rise out of their line, then the rest follows.
-        const split = SplitText.create("[data-split]", { type: "words", mask: "words" });
-        root.classList.add("motion-ready");
-        // If the opening screen is playing, start as it lifts (about 1.2 s in).
-        const introLeft = root.classList.contains("intro-on") && window.__introAt !== undefined
-          ? Math.max(0, 1.2 - (performance.now() - window.__introAt) / 1000)
-          : 0;
-        gsap
-          .timeline({ defaults: { ease: "expo.out" }, delay: introLeft })
-          .from(split.words, { yPercent: 110, duration: 1.1, stagger: 0.05 }, 0.1)
-          .from("[data-intro]", { y: 24, autoAlpha: 0, duration: 1, stagger: 0.08 }, 0.45)
-          .from(
-            "[data-portrait]",
-            { clipPath: "inset(100% 0% 0% 0% round 24px)", duration: 1.4, ease: "expo.inOut" },
-            0.15,
-          )
-          .from("[data-portrait] img", { scale: 1.25, duration: 1.8 }, 0.15);
+      /** Elements matching `selector` that have not been animated yet; marks them. */
+      let added = 0;
+      const fresh = (selector: string) => {
+        const found = [...document.querySelectorAll<HTMLElement>(`${selector}:not([data-m])`)];
+        found.forEach((el) => el.setAttribute("data-m", ""));
+        added += found.length;
+        return found;
+      };
+
+      const scan = () => {
+        added = 0;
+        // Triggers whose element left the page (previous route) are dropped.
+        ScrollTrigger.getAll().forEach((t) => {
+          const el = t.trigger as Element | undefined;
+          if (el && !el.isConnected) t.kill();
+        });
+
+        // Hero: words rise out of their line, then the rest follows. On the
+        // first page of a visit, wait for the opening screen to lift.
+        const headlines = fresh("[data-split]");
+        const intro = fresh("[data-intro]");
+        const portraits = fresh("[data-portrait]");
+        if (headlines.length || intro.length || portraits.length) {
+          const delay =
+            root.classList.contains("intro-on") && window.__introAt !== undefined
+              ? Math.max(0, 1.2 - (performance.now() - window.__introAt) / 1000)
+              : 0;
+          const tl = gsap.timeline({ defaults: { ease: "expo.out" }, delay });
+          headlines.forEach((h) => {
+            const split = SplitText.create(h, { type: "words", mask: "words" });
+            tl.from(split.words, { yPercent: 110, duration: 1.1, stagger: 0.05 }, 0.1);
+          });
+          if (intro.length) tl.from(intro, { y: 24, autoAlpha: 0, duration: 1, stagger: 0.08 }, headlines.length ? 0.45 : 0.05);
+          portraits.forEach((p) => {
+            tl.from(p, { clipPath: "inset(100% 0% 0% 0% round 24px)", duration: 1.4, ease: "expo.inOut" }, 0.15);
+            const img = p.querySelector("img");
+            if (img) tl.from(img, { scale: 1.25, duration: 1.8 }, 0.15);
+          });
+        }
 
         // Content rises in as it scrolls into view.
-        gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((group) => {
+        fresh("[data-reveal]").forEach((group) => {
+          if (!group.children.length) return;
           gsap.from(group.children, {
             y: 40,
             autoAlpha: 0,
@@ -87,7 +113,7 @@ export function Motion() {
         });
 
         // Parallax: the inner layer drifts against the page inside its frame.
-        gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((layer) => {
+        fresh("[data-parallax]").forEach((layer) => {
           const amount = Number(layer.dataset.parallax) || 8;
           gsap.fromTo(
             layer,
@@ -99,7 +125,19 @@ export function Motion() {
             },
           );
         });
-      });
+
+        if (added) ScrollTrigger.refresh();
+      };
+
+      // Batch DOM changes into one scan per frame.
+      let queued = 0;
+      const queue = () => {
+        if (!queued) queued = requestAnimationFrame(() => ((queued = 0), scan()));
+      };
+      const observer = new MutationObserver(queue);
+      observer.observe(document.body, { childList: true, subtree: true });
+      scan();
+      root.classList.add("motion-ready");
 
       // Border light that follows the pointer on cards.
       const onMove = (e: PointerEvent) => {
@@ -112,18 +150,26 @@ export function Motion() {
       window.addEventListener("pointermove", onMove, { passive: true });
 
       cleanup = () => {
+        observer.disconnect();
+        cancelAnimationFrame(queued);
         window.removeEventListener("pointermove", onMove);
-        ctx.revert();
+        ScrollTrigger.getAll().forEach((t) => t.kill());
         gsap.ticker.remove(raf);
         lenis.destroy();
         root.classList.remove("motion-ready");
       };
+      (window as Window & { __lenis?: InstanceType<typeof Lenis> }).__lenis = lenis;
     })();
 
     return () => {
       cancelled = true;
       cleanup();
     };
+  }, []);
+
+  // After a route change, let Lenis measure the new page.
+  useEffect(() => {
+    (window as Window & { __lenis?: { resize: () => void } }).__lenis?.resize();
   }, [pathname]);
 
   return null;
