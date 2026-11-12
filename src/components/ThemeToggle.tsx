@@ -12,16 +12,40 @@ function subscribe(onChange: () => void) {
   return () => observer.disconnect();
 }
 
-/** Dark is the default; the light theme is remembered once chosen. */
+function apply(theme: "light" | "dark") {
+  document.documentElement.dataset.theme = theme;
+  try {
+    localStorage.setItem("theme", theme);
+  } catch {}
+}
+
+/**
+ * Dark is the default; the light theme is remembered once chosen.
+ * In the animated experience the new theme opens as a circle from the button
+ * (View Transitions API). Lite visitors and older browsers switch instantly.
+ */
 export function ThemeToggle({ lang }: { lang: Lang }) {
   const light = useSyncExternalStore(subscribe, isLight, () => false);
 
-  const toggle = () => {
+  const toggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     const next = light ? "dark" : "light";
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
+    const root = document.documentElement;
+    if (!document.startViewTransition || !root.classList.contains("motion")) {
+      apply(next);
+      return;
+    }
+
+    const box = event.currentTarget.getBoundingClientRect();
+    const x = box.left + box.width / 2;
+    const y = box.top + box.height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    root.style.setProperty("--vt-x", `${x}px`);
+    root.style.setProperty("--vt-y", `${y}px`);
+    root.style.setProperty("--vt-r", `${radius}px`);
+    root.classList.add("theme-switching");
+
+    const transition = document.startViewTransition(() => apply(next));
+    transition.finished.finally(() => root.classList.remove("theme-switching"));
   };
 
   return (
@@ -29,9 +53,11 @@ export function ThemeToggle({ lang }: { lang: Lang }) {
       type="button"
       onClick={toggle}
       aria-label={light ? ui.theme.toDark[lang] : ui.theme.toLight[lang]}
-      className="grid h-11 w-11 place-items-center rounded-full text-muted transition-colors hover:bg-raised hover:text-fg"
+      className="theme-toggle grid h-11 w-11 place-items-center rounded-full text-muted transition-colors hover:bg-raised hover:text-fg"
     >
-      {light ? <Moon className="h-[18px] w-[18px]" aria-hidden /> : <Sun className="h-[18px] w-[18px]" aria-hidden />}
+      <span key={light ? "moon" : "sun"} className="theme-icon grid place-items-center">
+        {light ? <Moon className="h-[18px] w-[18px]" aria-hidden /> : <Sun className="h-[18px] w-[18px]" aria-hidden />}
+      </span>
     </button>
   );
 }

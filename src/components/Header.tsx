@@ -20,11 +20,13 @@ export function Header({ lang, altHref }: Props) {
   return (
     <header className="px-gutter sticky top-0 z-50 border-b border-line bg-ground">
       <div className="wrap flex h-16 items-center justify-between gap-4">
-        <Link href={home} className="flex items-center gap-2.5 font-semibold tracking-tight" aria-label={ui.nav.home[lang]}>
+        <Link href={home} className="flex items-center gap-2.5 font-semibold tracking-tight">
           <span aria-hidden className="grid h-8 w-8 place-items-center rounded-full bg-accent text-[12px] font-bold text-on-accent">
             RA
           </span>
-          <span className="hidden sm:inline">Roland Amedon</span>
+          {/* The visible name doubles as the link name; on phones it is read but not shown. */}
+          <span className="sr-only sm:not-sr-only">Roland Amedon</span>
+          <span className="sr-only">{lang === "fr" ? ", accueil" : ", home"}</span>
         </Link>
 
         <nav aria-label={ui.nav.label[lang]} className="hidden md:block">
@@ -44,7 +46,7 @@ export function Header({ lang, altHref }: Props) {
             href={altHref}
             hrefLang={other}
             lang={other}
-            aria-label={other === "en" ? "English version" : "Version française"}
+            aria-label={other === "en" ? "EN, English version" : "FR, version française"}
             className="grid h-11 min-w-11 place-items-center rounded-full px-2 text-[14px] font-semibold text-muted transition-colors hover:bg-raised hover:text-fg"
           >
             {other.toUpperCase()}

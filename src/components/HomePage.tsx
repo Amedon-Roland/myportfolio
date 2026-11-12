@@ -6,6 +6,8 @@ import { about, profile, services, stack } from "@/data/profile";
 import { projects, tools } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { CopyEmail } from "./CopyEmail";
+import { Reel } from "./Reel";
+import reelPoster from "@/assets/motion/showreel-poster.jpg";
 
 const marquee = ["Next.js", "React", "TypeScript", "Laravel", "Filament", "PHP", "Flutter", "Firebase", "Node.js", "Tailwind CSS", "SQL", "Python"];
 
@@ -97,6 +99,18 @@ export function HomePage({ lang }: { lang: Lang }) {
         </div>
       </div>
 
+      {/* Showreel */}
+      <section aria-labelledby="reel-title" className="px-gutter pt-16 sm:pt-20">
+        <div className="wrap">
+          <h2 id="reel-title" data-reveal className="mb-6 text-xl font-semibold tracking-tight">
+            {ui.reel.title[lang]}
+          </h2>
+          <div data-reveal>
+            <Reel lang={lang} poster={reelPoster} />
+          </div>
+        </div>
+      </section>
+
       {/* Client work */}
       <section aria-labelledby="projets" className="px-gutter scroll-mt-20 py-16 sm:py-20">
         <div className="wrap">
@@ -105,8 +119,8 @@ export function HomePage({ lang }: { lang: Lang }) {
           </SectionTitle>
           <ul data-reveal className="grid gap-5 md:grid-cols-2">
             {featured.map((p, i) => (
-              <li key={p.slug} className="flex">
-                <ProjectCard project={p} lang={lang} large priority={i < 2} />
+              <li key={p.slug} className={`flex ${i === 0 ? "md:col-span-2" : ""}`}>
+                <ProjectCard project={p} lang={lang} large wide={i === 0} priority={i < 1} />
               </li>
             ))}
           </ul>

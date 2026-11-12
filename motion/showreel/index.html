@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #0a0b0f;
+        --raised: #13151c;
+        --line: #23262f;
+        --ink: #f2f3f6;
+        --muted: #9aa0b0;
+        --accent: #9db0ff;
+        --font-display: Inter, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: var(--font-display); color: var(--ink); }
+      #backdrop {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(1100px 600px at 50% 110%, rgba(157, 176, 255, 0.16), transparent 70%),
+          radial-gradient(700px 400px at 85% -10%, rgba(157, 176, 255, 0.08), transparent 70%),
+          var(--ground);
+      }
+      #camera { position: absolute; left: 0; top: 0; width: 1px; height: 1px; transform-origin: 0 0; }
+      .win {
+        position: absolute; top: 0; width: 1280px; height: 852px;
+        border-radius: 22px; overflow: hidden;
+        background: var(--raised);
+        box-shadow: 0 0 0 1px var(--line), 0 40px 120px -20px rgba(0, 0, 0, 0.7);
+      }
+      .chrome { height: 52px; display: flex; align-items: center; gap: 8px; padding: 0 18px; border-bottom: 1px solid var(--line); }
+      .chrome i { width: 12px; height: 12px; border-radius: 50%; background: #2c303b; }
+      .url {
+        margin-left: 18px; padding: 6px 16px; border-radius: 999px; background: var(--ground);
+        color: var(--muted); font-size: 20px; font-weight: 500; letter-spacing: 0.01em;
+      }
+      .view { position: relative; height: 800px; overflow: hidden; }
+      .page img { display: block; width: 1280px; height: 800px; object-fit: cover; object-position: top; }
+      .label {
+        position: absolute; left: 160px; bottom: 50px;
+        display: flex; align-items: baseline; gap: 22px; white-space: nowrap;
+      }
+      .idx { font-size: 22px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+      .name { font-size: 50px; font-weight: 700; letter-spacing: -0.03em; }
+      .stack { font-size: 28px; color: var(--muted); }
+      .label:not(#label-gspe) > * { opacity: 0; }
+      #outro > * { opacity: 0; }
+      #outro { position: absolute; left: 0; right: 0; bottom: 120px; text-align: center; }
+      #outro .big { font-size: 64px; font-weight: 700; letter-spacing: -0.035em; }
+      #outro .small { margin-top: 14px; font-size: 26px; color: var(--muted); }
+      #outro .big b { color: var(--accent); font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="18.0" data-width="1920" data-height="1080" data-layout-allow-overflow>
+      <div id="backdrop"></div>
+      <div id="camera" data-layout-allow-overflow>
+<div class="win" id="win-gspe" style="left:0px">
+  <div class="chrome"><i></i><i></i><i></i><span class="url">gestion.gspeb2d.com</span></div>
+  <div class="view"><div class="page" id="page-gspe"><img src="assets/gspe-app.jpg" alt="" /><img src="assets/gspe-app-3.jpg" alt="" /></div></div>
+</div>
+<div class="win" id="win-technick" style="left:1500px">
+  <div class="chrome"><i></i><i></i><i></i><span class="url">technickstore.com</span></div>
+  <div class="view"><div class="page" id="page-technick"><img src="assets/technick-site.jpg" alt="" /><img src="assets/technick-site-2.jpg" alt="" /></div></div>
+</div>
+<div class="win" id="win-shenco" style="left:3000px">
+  <div class="chrome"><i></i><i></i><i></i><span class="url">shencoempiresarl.com</span></div>
+  <div class="view"><div class="page" id="page-shenco"><img src="assets/shenco-site.jpg" alt="" /><img src="assets/shenco-shop.jpg" alt="" /></div></div>
+</div>
+<div class="win" id="win-bkbg" style="left:4500px">
+  <div class="chrome"><i></i><i></i><i></i><span class="url">bkbghotels.vercel.app</span></div>
+  <div class="view"><div class="page" id="page-bkbg"><img src="assets/bkbg-site.jpg" alt="" /><img src="assets/bkbg-room-3d.jpg" alt="" /></div></div>
+</div>
+<div class="win" id="win-somayaf" style="left:6000px">
+  <div class="chrome"><i></i><i></i><i></i><span class="url">gestion · somayaf</span></div>
+  <div class="view"><div class="page" id="page-somayaf"><img src="assets/somayaf-app.jpg" alt="" /><img src="assets/somayaf-app-2.jpg" alt="" /></div></div>
+</div>
+      </div>
+<div class="label" id="label-gspe"><span class="idx">01</span><span class="name">GSPE B2D</span><span class="stack">Laravel · Filament</span></div>
+<div class="label" id="label-technick"><span class="idx">02</span><span class="name">Technick Store</span><span class="stack">Next.js · Laravel</span></div>
+<div class="label" id="label-shenco"><span class="idx">03</span><span class="name">Shenco Empire</span><span class="stack">Next.js · Firebase</span></div>
+<div class="label" id="label-bkbg"><span class="idx">04</span><span class="name">BKBG Hotels</span><span class="stack">Next.js · Three.js</span></div>
+<div class="label" id="label-somayaf"><span class="idx">05</span><span class="name">Somayaf</span><span class="stack">Laravel · Filament</span></div>
+      <div id="outro"><p class="big">Roland Amedon<b>.</b></p><p class="small">Lomé · Next.js · Laravel · Filament · Flutter</p></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set('#camera',{"x": 422.4, "y": 137.16000000000003, "scale": 0.84},0);
+      tl.set('#page-gspe',{y:0},0);
+      tl.set('#page-technick',{y:0},0);
+      tl.set('#page-shenco',{y:0},0);
+      tl.set('#page-bkbg',{y:0},0);
+      tl.set('#page-somayaf',{y:0},0);
+      tl.to('#page-gspe',{y:-800,duration:0.55,ease:'expo.inOut'},0.85);
+      tl.to('#camera',{...{"x": -837.5999999999999, "y": 137.16000000000003, "scale": 0.84},duration:0.80,ease:'power3.inOut'},2.00);
+      tl.to('#label-gspe > *',{opacity:0,filter:'blur(8px)',duration:0.18,stagger:0.03,ease:'power2.in'},2.00);
+      tl.fromTo('#label-technick > *',{opacity:0,filter:'blur(8px)'},{opacity:1,filter:'blur(0px)',duration:0.3,stagger:0.07,ease:'expo.out',immediateRender:false},2.52);
+      tl.to('#page-technick',{y:-800,duration:0.55,ease:'expo.inOut'},3.65);
+      tl.to('#camera',{...{"x": -2097.6, "y": 137.16000000000003, "scale": 0.84},duration:0.80,ease:'power3.inOut'},4.80);
+      tl.to('#label-technick > *',{opacity:0,filter:'blur(8px)',duration:0.18,stagger:0.03,ease:'power2.in'},4.80);
+      tl.fromTo('#label-shenco > *',{opacity:0,filter:'blur(8px)'},{opacity:1,filter:'blur(0px)',duration:0.3,stagger:0.07,ease:'expo.out',immediateRender:false},5.32);
+      tl.to('#page-shenco',{y:-800,duration:0.55,ease:'expo.inOut'},6.45);
+      tl.to('#camera',{...{"x": -3357.5999999999995, "y": 137.16000000000003, "scale": 0.84},duration:0.80,ease:'power3.inOut'},7.60);
+      tl.to('#label-shenco > *',{opacity:0,filter:'blur(8px)',duration:0.18,stagger:0.03,ease:'power2.in'},7.60);
+      tl.fromTo('#label-bkbg > *',{opacity:0,filter:'blur(8px)'},{opacity:1,filter:'blur(0px)',duration:0.3,stagger:0.07,ease:'expo.out',immediateRender:false},8.12);
+      tl.to('#page-bkbg',{y:-800,duration:0.55,ease:'expo.inOut'},9.25);
+      tl.to('#camera',{...{"x": -4617.599999999999, "y": 137.16000000000003, "scale": 0.84},duration:0.80,ease:'power3.inOut'},10.40);
+      tl.to('#label-bkbg > *',{opacity:0,filter:'blur(8px)',duration:0.18,stagger:0.03,ease:'power2.in'},10.40);
+      tl.fromTo('#label-somayaf > *',{opacity:0,filter:'blur(8px)'},{opacity:1,filter:'blur(0px)',duration:0.3,stagger:0.07,ease:'expo.out',immediateRender:false},10.92);
+      tl.to('#page-somayaf',{y:-800,duration:0.55,ease:'expo.inOut'},12.05);
+      tl.to('#label-somayaf > *',{opacity:0,filter:'blur(8px)',duration:0.18,stagger:0.03,ease:'power2.in'},13.50);
+      tl.to('#camera',{...{"x": 104.60000000000002, "y": 439.89, "scale": 0.235},duration:1.2,ease:'power3.inOut'},13.50);
+      tl.fromTo('#outro > *',{opacity:0,y:0,filter:'blur(8px)'},{opacity:1,filter:'blur(0px)',duration:0.4,stagger:0.08,ease:'expo.out',immediateRender:false},14.40);
+      tl.to('#page-gspe',{y:0,duration:0.6,ease:'power2.inOut'},13.90);
+      tl.to('#page-technick',{y:0,duration:0.6,ease:'power2.inOut'},13.90);
+      tl.to('#page-shenco',{y:0,duration:0.6,ease:'power2.inOut'},13.90);
+      tl.to('#page-bkbg',{y:0,duration:0.6,ease:'power2.inOut'},13.90);
+      tl.to('#page-somayaf',{y:0,duration:0.6,ease:'power2.inOut'},13.90);
+      tl.to('#outro > *',{opacity:0,filter:'blur(8px)',duration:0.2,stagger:0.03,ease:'power2.in'},16.30);
+      tl.to('#camera',{...{"x": 422.4, "y": 137.16000000000003, "scale": 0.84},duration:1.2,ease:'power3.inOut'},16.40);
+      tl.fromTo('#label-gspe > *',{opacity:0,filter:'blur(8px)'},{opacity:1,filter:'blur(0px)',duration:0.3,stagger:0.07,ease:'expo.out',immediateRender:false},17.30);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

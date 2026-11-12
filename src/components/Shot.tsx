@@ -8,6 +8,8 @@ type Props = {
   className?: string;
   /** Crop to a fixed ratio from the top; otherwise the image keeps its own ratio. */
   ratio?: string;
+  /** Tailwind aspect classes, for a ratio that changes with the screen size (overrides `ratio`). */
+  ratioClass?: string;
   /** Drift, in percent, against the scroll (animated only on capable connections). */
   parallax?: number;
 };
@@ -18,7 +20,7 @@ type Props = {
  * the real image in the smallest format the browser accepts. With
  * `parallax`, the image is slightly taller than its frame so it can drift.
  */
-export function Shot({ src, alt, sizes, priority, className = "", ratio, parallax }: Props) {
+export function Shot({ src, alt, sizes, priority, className = "", ratio, ratioClass, parallax }: Props) {
   const image = (
     <Image
       src={src}
@@ -34,8 +36,8 @@ export function Shot({ src, alt, sizes, priority, className = "", ratio, paralla
 
   return (
     <div
-      className={`skeleton relative overflow-hidden ${className}`}
-      style={{ aspectRatio: ratio ?? `${src.width} / ${src.height}` }}
+      className={`skeleton relative overflow-hidden ${ratioClass ?? ""} ${className}`}
+      style={ratioClass ? undefined : { aspectRatio: ratio ?? `${src.width} / ${src.height}` }}
     >
       {parallax ? (
         <div data-parallax={parallax} className="absolute inset-x-0" style={{ top: `-${parallax}%`, bottom: `-${parallax}%` }}>

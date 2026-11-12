@@ -15,10 +15,23 @@ import technickMobile from "@/assets/work/technick-mobile.jpg";
 import technickApp from "@/assets/work/technick-app.jpg";
 import shencoSite from "@/assets/work/shenco-site.jpg";
 import shencoSite2 from "@/assets/work/shenco-site-2.jpg";
+import shencoShop from "@/assets/work/shenco-shop.jpg";
+import shencoOrder from "@/assets/work/shenco-order.jpg";
+import shencoTransport from "@/assets/work/shenco-transport.jpg";
+import shencoMobile from "@/assets/work/shenco-mobile.jpg";
 import shencoApp from "@/assets/work/shenco-app.jpg";
 import shencoApp2 from "@/assets/work/shenco-app-2.jpg";
 import shencoApp3 from "@/assets/work/shenco-app-3.jpg";
 import shencoAppLogin from "@/assets/work/shenco-app-login.jpg";
+import bkbgSite from "@/assets/work/bkbg-site.jpg";
+import bkbgSite2 from "@/assets/work/bkbg-site-2.jpg";
+import bkbgRoom from "@/assets/work/bkbg-room-3d.jpg";
+import bkbgDining from "@/assets/work/bkbg-dining.jpg";
+import bkbgBooking from "@/assets/work/bkbg-booking.jpg";
+import bkbgAdmin from "@/assets/work/bkbg-admin.jpg";
+import bkbgAdmin2 from "@/assets/work/bkbg-admin-2.jpg";
+import bkbgAdmin3 from "@/assets/work/bkbg-admin-3.jpg";
+import bkbgMobile from "@/assets/work/bkbg-mobile.jpg";
 import somayafApp from "@/assets/work/somayaf-app.jpg";
 import somayafApp2 from "@/assets/work/somayaf-app-2.jpg";
 import somayafApp3 from "@/assets/work/somayaf-app-3.jpg";
@@ -61,6 +74,54 @@ const backOffice: T = { fr: "Logiciel de gestion", en: "Management software" };
 const app: T = { fr: "Application", en: "App" };
 
 export const projects: Project[] = [
+  {
+    slug: "bkbg-hotels",
+    name: "BKBG Hotels",
+    client: { fr: "BKBG Hotels, Baguida (Lomé)", en: "BKBG Hotels, Baguida (Lomé)" },
+    year: "2026",
+    featured: true,
+    parts: [site, backOffice],
+    summary: {
+      fr: "Le site d'un hôtel en bord de mer, avec une visite 3D de chaque chambre et un espace pour l'équipe.",
+      en: "A website for a seaside hotel, with a 3D tour of every room and a back-office for the staff.",
+    },
+    need: {
+      fr: "L'hôtel voulait un site neuf qui montre vraiment ses chambres, ses restaurants et ses salles, et qui envoie les demandes de réservation directement à la réception.",
+      en: "The hotel wanted a new site that really shows its rooms, restaurants and function rooms, and sends booking requests straight to the front desk.",
+    },
+    built: {
+      fr: [
+        "Une maquette 3D de chaque chambre, générée depuis sa fiche : vue de jour ou de soir, trois points de vue, plein écran.",
+        "La réservation en 4 étapes (dates, chambre, coordonnées, options), confirmée par WhatsApp, appel ou e-mail.",
+        "Les pages gastronomie, événements avec demande de devis, l'hôtel et le contact.",
+        "L'espace équipe : réservations avec statuts et export CSV, chambres, tarifs et photos, messages et réglages.",
+      ],
+      en: [
+        "A 3D model of every room, built from its listing: day or evening light, three viewpoints, full screen.",
+        "Booking in 4 steps (dates, room, details, extras), confirmed over WhatsApp, a call or email.",
+        "Dining, events with a quote request, the hotel and contact pages.",
+        "The staff area: bookings with statuses and CSV export, rooms, rates and photos, messages and settings.",
+      ],
+    },
+    stack: ["Next.js", "React Three Fiber", "Firebase", "Tailwind CSS"],
+    links: [
+      {
+        label: { fr: "bkbghotels.vercel.app (en validation)", en: "bkbghotels.vercel.app (under review)" },
+        href: "https://bkbghotels.vercel.app",
+      },
+    ],
+    cover: { src: bkbgSite, alt: { fr: "Page d'accueil de BKBG Hotels", en: "BKBG Hotels home page" } },
+    gallery: [
+      { src: bkbgRoom, alt: { fr: "Visite 3D de la Royal Room", en: "3D tour of the Royal Room" } },
+      { src: bkbgSite2, alt: { fr: "L'hôtel présenté en quelques chiffres", en: "The hotel in a few figures" } },
+      { src: bkbgBooking, alt: { fr: "Réservation, étape 1 : les dates", en: "Booking, step 1: dates" } },
+      { src: bkbgDining, alt: { fr: "Les restaurants de l'hôtel", en: "The hotel's restaurants" } },
+      { src: bkbgAdmin, alt: { fr: "Espace équipe : tableau de bord", en: "Staff area: dashboard" } },
+      { src: bkbgAdmin2, alt: { fr: "Espace équipe : réservations", en: "Staff area: bookings" } },
+      { src: bkbgAdmin3, alt: { fr: "Espace équipe : chambres et plans", en: "Staff area: rooms and floor plans" } },
+    ],
+    mobile: { src: bkbgMobile, alt: { fr: "BKBG Hotels sur téléphone", en: "BKBG Hotels on a phone" } },
+  },
   {
     slug: "gspe-b2d",
     name: "GSPE B2D",
@@ -152,46 +213,52 @@ export const projects: Project[] = [
   },
   {
     slug: "shenco",
-    name: "Shenco Agro & Transport",
+    name: "Shenco Empire",
     client: { fr: "Shenco Empire SARL, Togo", en: "Shenco Empire SARL, Togo" },
     year: "2026",
     featured: true,
     parts: [site, backOffice],
     summary: {
-      fr: "Le site de vente de moutons de Tabaski et le logiciel de gestion de l'élevage.",
-      en: "A website for selling Tabaski sheep, and the software that runs the farm.",
+      fr: "La boutique en ligne d'un éleveur de moutons et de volailles, la location de camions, et le logiciel de gestion de l'élevage.",
+      en: "An online shop for a sheep and poultry farm, truck hire, and the software that runs the farm.",
     },
     need: {
-      fr: "L'élevage était suivi dans un seul fichier Excel : animaux, poids, santé, croisements et dépenses.",
-      en: "The farm was tracked in a single Excel file: animals, weights, health, breeding and expenses.",
+      fr: "Shenco voulait vendre ses bêtes et louer ses camions en ligne. L'élevage, lui, était suivi dans un seul fichier Excel : animaux, poids, santé, croisements et dépenses.",
+      en: "Shenco wanted to sell its animals and hire out its trucks online. The farm itself was tracked in a single Excel file: animals, weights, health, breeding and expenses.",
     },
     built: {
       fr: [
-        "Le site public : catalogue de moutons et commande par WhatsApp.",
-        "Une fiche par animal : généalogie, pesées, santé et contrôle de consanguinité.",
-        "La reproduction en tableau Kanban, des alertes de santé et le stock d'aliments.",
-        "Les finances, la comptabilité et les exports Excel et PDF.",
+        "La boutique : catalogue filtrable, fiche par animal avec photos, poids, âge et prix.",
+        "La commande en 4 étapes, envoyée directement ou par WhatsApp, avec un e-mail à l'équipe et au client.",
+        "La location de camions avec chauffeur et la demande de prix, une application installable qui marche hors ligne.",
+        "Le tableau de bord du site : commandes, produits, camions, messages et statistiques.",
+        "La gestion de l'élevage : généalogie, pesées, santé, reproduction, stock d'aliments, finances et exports.",
       ],
       en: [
-        "The public website: a sheep catalogue with WhatsApp ordering.",
-        "One record per animal: lineage, weights, health and an inbreeding check.",
-        "A breeding board, health alerts and feed stock.",
-        "Finances, accounting and Excel and PDF exports.",
+        "The shop: a filterable catalogue, one page per animal with photos, weight, age and price.",
+        "Ordering in 4 steps, sent directly or over WhatsApp, with an email to the team and the customer.",
+        "Truck hire with a driver and quote requests, in an installable app that works offline.",
+        "The site's dashboard: orders, products, trucks, messages and statistics.",
+        "Farm management: lineage, weights, health, breeding, feed stock, finances and exports.",
       ],
     },
-    stack: ["Next.js", "Firebase", "Laravel 12", "Filament"],
+    stack: ["Next.js", "Firebase", "Resend", "Laravel 12", "Filament"],
     links: [
       { label: { fr: "shencoempiresarl.com", en: "shencoempiresarl.com" }, href: "https://shencoempiresarl.com" },
       { label: { fr: "Gestion de l'élevage (interne)", en: "Farm management (internal)" } },
     ],
     cover: { src: shencoSite, alt: { fr: "Page d'accueil de shencoempiresarl.com", en: "shencoempiresarl.com home page" } },
     gallery: [
-      { src: shencoApp, alt: { fr: "Vue générale de la gestion de l'élevage", en: "Farm management overview" } },
-      { src: shencoApp2, alt: { fr: "Fiches sanitaires du troupeau", en: "Herd health records" } },
-      { src: shencoApp3, alt: { fr: "Tableau de bord des finances", en: "Finance dashboard" } },
+      { src: shencoShop, alt: { fr: "La boutique et ses filtres", en: "The shop and its filters" } },
       { src: shencoSite2, alt: { fr: "Les trois métiers de Shenco", en: "Shenco's three lines of business" } },
+      { src: shencoOrder, alt: { fr: "La commande en 4 étapes", en: "The 4-step order" } },
+      { src: shencoTransport, alt: { fr: "Location de camions avec chauffeur", en: "Truck hire with a driver" } },
+      { src: shencoApp, alt: { fr: "Gestion de l'élevage : vue générale", en: "Farm management: overview" } },
+      { src: shencoApp2, alt: { fr: "Gestion de l'élevage : fiches sanitaires", en: "Farm management: health records" } },
+      { src: shencoApp3, alt: { fr: "Gestion de l'élevage : finances", en: "Farm management: finances" } },
       { src: shencoAppLogin, alt: { fr: "Écran de connexion de la gestion", en: "Management sign-in screen" } },
     ],
+    mobile: { src: shencoMobile, alt: { fr: "shencoempiresarl.com sur téléphone", en: "shencoempiresarl.com on a phone" } },
   },
   {
     slug: "somayaf",

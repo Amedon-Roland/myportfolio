@@ -54,6 +54,16 @@ export const ui = {
     open: { fr: "Voir le projet", en: "View project" },
     source: { fr: "Code source", en: "Source code" },
   },
+  reel: {
+    title: { fr: "Quelques écrans, en mouvement", en: "A few screens, in motion" },
+    label: {
+      fr: "Vidéo : défilement des écrans de GSPE B2D, Technick Store, Shenco Empire, BKBG Hotels et Somayaf.",
+      en: "Video: screens from GSPE B2D, Technick Store, Shenco Empire, BKBG Hotels and Somayaf.",
+    },
+    pause: { fr: "Mettre la vidéo en pause", en: "Pause the video" },
+    play: { fr: "Lire la vidéo", en: "Play the video" },
+    note: { fr: "Montage réalisé en code avec HyperFrames", en: "Edited in code with HyperFrames" },
+  },
   services: {
     title: { fr: "Ce que je fais", en: "What I do" },
   },

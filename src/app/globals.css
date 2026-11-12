@@ -168,3 +168,197 @@ body {
 .lite .marquee {
   animation: none;
 }
+
+/*
+  Theme switch (ThemeToggle.tsx): the new theme grows as a circle from the
+  button while the old one stays still underneath. Only runs in the motion
+  experience; everyone else gets an instant switch.
+*/
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+.theme-switching::view-transition-new(root) {
+  animation: theme-reveal 0.75s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+.theme-switching::view-transition-old(root) {
+  animation: theme-recede 0.75s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0));
+  }
+  to {
+    clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 0));
+  }
+}
+@keyframes theme-recede {
+  to {
+    filter: brightness(0.7);
+  }
+}
+
+/* The sun and moon swap with a short turn. */
+.motion .theme-icon {
+  animation: icon-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes icon-in {
+  from {
+    transform: rotate(-90deg) scale(0.4);
+    opacity: 0;
+  }
+}
+
+/*
+  Opening screen (IntroScreen.tsx). About 2 s, once per session, motion
+  experience only. Timeline:
+    0.00–1.00  ring draws, counter runs 0 → 100, bar fills
+    0.15–0.85  name rises letter by letter
+    1.10–1.80  ground panel lifts away, the accent panel follows a beat later
+*/
+@property --intro-n {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+.intro-screen {
+  display: none;
+}
+.intro-on .intro-screen {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+.intro-panel {
+  position: absolute;
+  inset: 0;
+  animation: intro-lift 0.75s cubic-bezier(0.76, 0, 0.24, 1) 1.1s both;
+}
+.intro-panel-accent {
+  background: var(--color-accent);
+  animation-delay: 1.22s;
+}
+.intro-panel-ground {
+  display: grid;
+  place-items: center;
+  background: var(--color-ground);
+}
+.intro-content {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  animation: intro-content-out 0.45s cubic-bezier(0.55, 0, 1, 0.45) 1.05s both;
+}
+.intro-mark {
+  width: 88px;
+  height: 88px;
+  color: var(--color-fg);
+}
+.intro-mark text {
+  fill: currentColor;
+  font: 700 30px var(--font-sans);
+  letter-spacing: -0.02em;
+  animation: intro-fade 0.6s ease-out 0.25s both;
+}
+.intro-ring {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  animation: intro-draw 1s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+.intro-name {
+  display: flex;
+  overflow: hidden;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.intro-name span {
+  display: inline-block;
+  animation: intro-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.15s + var(--i) * 0.03s);
+}
+.intro-role {
+  font-size: 14px;
+  color: var(--color-muted);
+  animation: intro-fade 0.6s ease-out 0.45s both;
+}
+.intro-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 200px;
+  margin-top: 6px;
+  font: 500 12px/1 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+}
+.intro-bar {
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+  position: relative;
+  overflow: hidden;
+}
+.intro-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-fg);
+  transform-origin: left;
+  animation: intro-bar 1s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+.intro-count {
+  width: 3ch;
+  text-align: right;
+  counter-reset: intro var(--intro-n);
+  animation: intro-count 1s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+.intro-count::after {
+  content: counter(intro);
+}
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes intro-rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes intro-bar {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes intro-count {
+  to {
+    --intro-n: 100;
+  }
+}
+@keyframes intro-content-out {
+  to {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+}
+@keyframes intro-lift {
+  to {
+    transform: translateY(-100%);
+  }
+}

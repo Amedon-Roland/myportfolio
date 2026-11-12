@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 declare global {
   interface Window {
     __motionReady?: boolean;
+    /** When the opening screen started (performance.now()), set by the boot script. */
+    __introAt?: number;
   }
 }
 
@@ -57,8 +59,12 @@ export function Motion() {
         // Hero: words rise out of their line, then the rest follows.
         const split = SplitText.create("[data-split]", { type: "words", mask: "words" });
         root.classList.add("motion-ready");
+        // If the opening screen is playing, start as it lifts (about 1.2 s in).
+        const introLeft = root.classList.contains("intro-on") && window.__introAt !== undefined
+          ? Math.max(0, 1.2 - (performance.now() - window.__introAt) / 1000)
+          : 0;
         gsap
-          .timeline({ defaults: { ease: "expo.out" } })
+          .timeline({ defaults: { ease: "expo.out" }, delay: introLeft })
           .from(split.words, { yPercent: 110, duration: 1.1, stagger: 0.05 }, 0.1)
           .from("[data-intro]", { y: 24, autoAlpha: 0, duration: 1, stagger: 0.08 }, 0.45)
           .from(
