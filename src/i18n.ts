@@ -128,6 +128,42 @@ export const ui = {
         fr: ["Un projet ? Écris-lui, il répond vite.", "Promis, je ne lis pas tes mails."],
         en: ["Got a project? Write to him, he answers fast.", "I promise I don't read your emails."],
       },
+      pet: {
+        fr: ["Hé, ça chatouille !", "Encore, encore !", "Je ronronne pas, je suis un robot. Enfin..."],
+        en: ["Hey, that tickles!", "Again, again!", "I don't purr, I'm a robot. Well..."],
+      },
+      dizzy: {
+        fr: ["Doucement... tout tourne.", "Stop, je vais buguer !"],
+        en: ["Easy... everything's spinning.", "Stop, I'm going to glitch!"],
+      },
+      sleep: {
+        fr: ["Zzz... je fais une petite mise en veille.", "Zzz... je rêve de code propre."],
+        en: ["Zzz... just a quick sleep mode.", "Zzz... dreaming of clean code."],
+      },
+      wake: {
+        fr: ["Oh ! Tu es revenu. Je ne dormais pas, hein.", "Mise en veille terminée !"],
+        en: ["Oh! You're back. I wasn't sleeping, promise.", "Sleep mode over!"],
+      },
+      light: {
+        fr: ["Aïe, mes yeux ! Bon, c'est joli aussi.", "Mode jour activé."],
+        en: ["Ouch, my eyes! Well, it's nice too.", "Day mode on."],
+      },
+      dark: {
+        fr: ["Ah, je préfère le noir. Ça repose.", "Mode nuit, mon préféré."],
+        en: ["Ah, I prefer the dark. Much calmer.", "Night mode, my favourite."],
+      },
+      copied: {
+        fr: ["Adresse copiée. Il n'attend que toi !", "Bien joué. Maintenant, colle-la."],
+        en: ["Address copied. He's waiting for you!", "Nice. Now paste it."],
+      },
+      fast: {
+        fr: ["Wouhou, ça va vite !", "Pas si vite, je suis petit !"],
+        en: ["Wheee, that's fast!", "Not so fast, I'm small!"],
+      },
+      top: {
+        fr: ["Et hop, retour en haut !", "Ascenseur express !"],
+        en: ["And up we go!", "Express elevator!"],
+      },
       lost: {
         fr: ["Moi aussi, je suis perdu. On rentre ?", "Cette page a dû partir en vacances."],
         en: ["I'm lost too. Shall we head home?", "This page must be on holiday."],

@@ -418,7 +418,7 @@ body::before {
   user-select: none;
 }
 
-/* ROLI (Roli.tsx). Still for lite visitors, alive otherwise. */
+/* ROLI (Roli.tsx). Expressions work everywhere; movement only in motion mode. */
 .roli {
   overflow: visible;
 }
@@ -430,26 +430,87 @@ body::before {
   transform: translate(var(--look-x, 0), var(--look-y, 0));
   transition: transform 0.25s ease-out;
 }
-.roli-eye {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+.roli-eye,
 .roli-arm-right,
-.roli-antenna {
+.roli-arm-left,
+.roli-antenna,
+.roli-shadow,
+.roli-body,
+.roli-zz,
+.roli-heart {
   transform-box: fill-box;
+}
+.roli-eye {
+  transform-origin: center;
 }
 .roli-arm-right {
   transform-origin: 0% 100%;
 }
+.roli-arm-left {
+  transform-origin: 100% 0%;
+}
 .roli-antenna {
   transform-origin: 50% 100%;
 }
+.roli-body {
+  transform-origin: 50% 100%;
+}
+.roli-shadow {
+  transform-origin: center;
+}
+
+/* Which face for which mood. */
+.roli-f,
+.roli-zz,
+.roli-heart {
+  display: none;
+}
+.roli-f-open,
+.roli-m-smile {
+  display: inline;
+}
+.roli-happy .roli-f-open,
+.roli-wave .roli-f-open,
+.roli-sleep .roli-f-open,
+.roli-dizzy .roli-f-open,
+.roli-wow .roli-f-open,
+.roli-happy .roli-m-smile,
+.roli-wave .roli-m-smile,
+.roli-think .roli-m-smile,
+.roli-dizzy .roli-m-smile,
+.roli-wow .roli-m-smile,
+.roli-sleep .roli-m-smile {
+  display: none;
+}
+.roli-happy .roli-f-happy,
+.roli-wave .roli-f-happy,
+.roli-happy .roli-m-grin,
+.roli-wave .roli-m-grin,
+.roli-sleep .roli-f-closed,
+.roli-sleep .roli-m-flat,
+.roli-think .roli-m-flat,
+.roli-dizzy .roli-f-dizzy,
+.roli-dizzy .roli-m-o,
+.roli-wow .roli-f-wow,
+.roli-wow .roli-m-o,
+.roli-sleep .roli-zz,
+.roli-happy .roli-heart {
+  display: inline;
+}
+.roli-cheek {
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+.roli-happy .roli-cheek,
+.roli-wave .roli-cheek {
+  opacity: 0.95;
+}
+
+/* Living loops (motion experience only). */
 .motion .roli-body {
   animation: roli-float 3.2s ease-in-out infinite;
 }
 .motion .roli-shadow {
-  transform-box: fill-box;
-  transform-origin: center;
   animation: roli-shadow 3.2s ease-in-out infinite;
 }
 .motion .roli-eye {
@@ -459,39 +520,118 @@ body::before {
   animation: roli-antenna 2.4s ease-in-out infinite;
 }
 .motion .roli-wave .roli-arm-right {
-  animation: roli-wave 0.9s ease-in-out infinite;
+  animation: roli-wave 0.8s ease-in-out infinite;
 }
-.roli-think .roli-mouth {
-  d: path("M54 74 L 66 72");
+.motion .roli-happy .roli-body {
+  animation: roli-hop 0.7s cubic-bezier(0.3, 0, 0.3, 1) infinite;
 }
+.motion .roli-happy .roli-arm-left,
+.motion .roli-happy .roli-arm-right {
+  animation: roli-wave 0.7s ease-in-out infinite;
+}
+.motion .roli-sleep .roli-body {
+  animation: roli-breathe 3.6s ease-in-out infinite;
+}
+.motion .roli-sleep .roli-antenna {
+  animation: none;
+  transform: rotate(-28deg);
+}
+.motion .roli-zz {
+  animation: roli-zz 2.4s ease-in-out infinite;
+}
+.motion .roli-dizzy .roli-body {
+  animation: roli-wobble 0.6s ease-in-out infinite;
+}
+.motion .roli-dizzy .roli-f-dizzy {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.motion .roli-wow .roli-body {
+  animation: roli-startle 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+.motion .roli-heart {
+  animation: roli-heart 1.4s ease-out infinite;
+}
+.motion .roli-think .roli-antenna {
+  animation: roli-antenna 1s ease-in-out infinite;
+}
+
+/* One-shot actions, restarted by RoliGuide on each trigger. */
+.motion .roli-act-jump .roli {
+  animation: roli-jump 0.75s cubic-bezier(0.3, 0, 0.3, 1);
+}
+.motion .roli-act-spin .roli {
+  animation: roli-spin 0.85s cubic-bezier(0.6, 0, 0.3, 1);
+}
+.motion .roli-act-enter .roli {
+  animation: roli-enter 0.9s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+/* Leans into the scroll (set from scroll speed). */
+.roli-lean {
+  transform: rotate(var(--lean, 0deg));
+  transform-origin: 50% 100%;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @keyframes roli-float {
-  50% {
-    transform: translateY(-5px);
-  }
+  50% { transform: translateY(-5px); }
 }
 @keyframes roli-shadow {
-  50% {
-    transform: scaleX(0.82);
-    opacity: 0.15;
-  }
+  50% { transform: scaleX(0.82); opacity: 0.15; }
 }
 @keyframes roli-blink {
-  0%, 92%, 100% {
-    transform: scaleY(1);
-  }
-  95% {
-    transform: scaleY(0.1);
-  }
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
 }
 @keyframes roli-antenna {
-  50% {
-    transform: rotate(8deg);
-  }
+  50% { transform: rotate(8deg); }
 }
 @keyframes roli-wave {
-  50% {
-    transform: rotate(-22deg);
-  }
+  50% { transform: rotate(-24deg); }
+}
+@keyframes roli-hop {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  15% { transform: translateY(0) scale(1.06, 0.92); }
+  45% { transform: translateY(-12px) scale(0.96, 1.05); }
+  75% { transform: translateY(0) scale(1.04, 0.95); }
+}
+@keyframes roli-breathe {
+  50% { transform: scale(1.02, 0.97); }
+}
+@keyframes roli-zz {
+  0% { transform: translate(0, 4px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translate(4px, -8px); opacity: 0; }
+}
+@keyframes roli-wobble {
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+@keyframes roli-startle {
+  0% { transform: scale(1); }
+  40% { transform: translateY(-10px) scale(1.08, 0.94); }
+  100% { transform: none; }
+}
+@keyframes roli-heart {
+  0% { transform: translateY(6px) scale(0.4); opacity: 0; }
+  30% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { transform: translateY(-14px) scale(0.9); opacity: 0; }
+}
+@keyframes roli-jump {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  15% { transform: translateY(0) scale(1.12, 0.86); }
+  45% { transform: translateY(-34px) scale(0.92, 1.1); }
+  80% { transform: translateY(0) scale(1.08, 0.92); }
+}
+@keyframes roli-spin {
+  0% { transform: rotate(0); }
+  40% { transform: translateY(-24px) rotate(200deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes roli-enter {
+  0% { transform: translateY(140%) scale(0.6); }
+  60% { transform: translateY(-12%) scale(1.05, 0.95); }
+  100% { transform: none; }
 }
 
 /* Speech bubble and the hidden Roli peeking from the bottom edge. */

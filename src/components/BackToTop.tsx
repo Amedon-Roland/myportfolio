@@ -37,6 +37,7 @@ export function BackToTop({ lang }: { lang: Lang }) {
   }, []);
 
   const toTop = () => {
+    dispatchEvent(new Event("roli:top"));
     const lenis = (window as Window & { __lenis?: { scrollTo: (y: number, o?: object) => void } }).__lenis;
     if (lenis && document.documentElement.classList.contains("motion")) {
       lenis.scrollTo(0, { duration: 1.4 });
